@@ -66,7 +66,8 @@ var encounters = [
 
 var adventure = {
   'current_encounter': 0,
-  'encounters': encounters
+  'encounters': encounters,
+  'completed': false
 };
 
 var game = {

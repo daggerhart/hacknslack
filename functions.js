@@ -30,6 +30,7 @@ function _next_encounter(){
   }
   else {
     __d('End of adventure');
+    adventure.completed = true;
   }
 }
 
@@ -63,6 +64,10 @@ function _encounter_lose( current_encounter ){
 
 //
 function _do_current_encounter(){
+  if ( adventure.completed ) {
+    __d('There are no more encounters left in this adventure.');
+    return;
+  }
   if ( adventure.encounters[ adventure.current_encounter ] ) {
     var current_encounter = adventure.encounters[ adventure.current_encounter ];
 
