@@ -33,6 +33,34 @@ function _next_encounter(){
   }
 }
 
+function _pc_attack( current_encounter ){
+  //roll attack
+  var attack = rand( 1, pc[ current_encounter.vs ] );
+  
+  // if the PC has a weapon, and the weapon applies to this type of encounter
+  if ( pc.equipment.weapon && pc.equipment.weapon.attribute == current_encounter.vs ) {
+    __d( pc.name + ' goes "' + pc.equipment.weapon.effect + '" with his ' + pc.equipment.weapon.name + ' for ' + attack + '+' + pc.equipment.weapon.bonus );
+    attack += pc.equipment.weapon.bonus;
+  }
+  
+  return attack;
+}
+
+function _encounter_lose( current_encounter ){
+  var damage = current_encounter.damage;
+  //if PC has armor
+  if ( pc.equipment.armor ) {
+    damage -= pc.equipment.armor.bonus;
+    if ( damage < 0) {
+      damage = 0;
+    }
+  }
+  
+  __d( ' you lost the encounter and took ' + damage + ' damage ' );
+    //subtract damage value from pc's current HP
+  pc.hp -= damage;
+}
+
 //
 function _do_current_encounter(){
   if ( adventure.encounters[ adventure.current_encounter ] ) {
@@ -41,7 +69,7 @@ function _do_current_encounter(){
     __d(current_encounter);
 
     if ( pc[ current_encounter.vs ] ){
-      var attack = rand( 1, pc[ current_encounter.vs ] );
+      var attack = _pc_attack( current_encounter );
 
       __d(attack + ' vs ' + current_encounter.dc );
 
@@ -49,10 +77,10 @@ function _do_current_encounter(){
         __d('you won the encounter!');
       }
       else {
-        __d('you lost the encounter');
+        _encounter_lose( current_encounter );
       }
     }
-
+    __d( pc.name + ' hp: ' + pc.hp );
     _next_encounter();
   }
 }
