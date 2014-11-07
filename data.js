@@ -14,12 +14,12 @@ var encounters = [
   {
     'name': 'Gray sweatsuit',
     'description': 'sweaty sweaty',
-    'dc': 2,
+    'dc': 2
   },
   {
     'name': 'Mostly-functional Heat Rifle',
     'description': 'somewhat functional',
-    'dc': 2,
+    'dc': 2
   }
 ];
 

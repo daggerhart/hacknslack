@@ -1,5 +1,4 @@
 // show current encounter
-
 function _current_encounter(){
   // loop through adventure encounters
   for( var i = 0; i < adventure.encounters.length; i++ ){
