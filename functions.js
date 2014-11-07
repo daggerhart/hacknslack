@@ -46,10 +46,10 @@ function _do_current_encounter(){
       __d(attack + ' vs ' + current_encounter.dc );
 
       if ( attack >= current_encounter.dc ){
-        __d('you won the battle!');
+        __d('you won the encounter!');
       }
       else {
-        __d('you lost the battle');
+        __d('you lost the encounter');
       }
     }
 
