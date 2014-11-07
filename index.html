@@ -5,6 +5,58 @@
     <title>Page Title</title>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script type="text/javascript" src="screen-console/screen-console.js"></script>
+    
+    <script type="text/javascript">
+      var user = {
+        'name': 'nate'
+      };
+      
+      var pc = {
+        'player': user,
+        'mind': 5,
+        'body': 5,
+        'spirit': 5,
+        'hp': 10
+      };
+      
+      var encounters = [
+        {
+          'name': 'Gray sweatsuit',
+          'description': 'sweaty sweaty',
+          'dc': 2,
+        },
+        {
+          'name': 'Mostly-functional Heat Rifle',
+          'description': 'somewhat functional',
+          'dc': 2,
+        }
+      ];
+      
+      var adventure = {
+        'current_encounter': 0,
+        'encounters': encounters
+      };
+      
+      var game = {
+      };
+      
+      //
+      function _current_encounter(){
+        // loop through adventure encounters
+        for( var i = 0; i < adventure.encounters.length; i++ ){
+          if ( adventure.current_encounter == i ) {
+            var this_encounter = adventure.encounters[ i ];
+            console.log(this_encounter);
+          }
+        }
+      }
+      
+      $(document).ready(function(){
+        
+      });
+      
+    </script>
+    
 </head>
 
 <body>
