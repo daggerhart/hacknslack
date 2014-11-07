@@ -21,6 +21,7 @@ function _current_encounter(){
 }
 // */
 
+//
 function _next_encounter(){
   var next = adventure.current_encounter + 1;
 
@@ -37,8 +38,10 @@ function _do_current_encounter(){
   if ( adventure.encounters[ adventure.current_encounter ] ) {
     var current_encounter = adventure.encounters[ adventure.current_encounter ];
 
+    __d(current_encounter);
+
     if ( pc[ current_encounter.vs ] ){
-      var attack = rand(1, pc[ current_encounter.vs ]);
+      var attack = rand( 1, pc[ current_encounter.vs ] );
 
       __d(attack + ' vs ' + current_encounter.dc );
 
