@@ -8,19 +8,6 @@ function rand(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
-
-/*/ show current encounter
-function _current_encounter(){
-  // loop through adventure encounters
-  for( var i = 0; i < adventure.encounters.length; i++ ){
-    if ( adventure.current_encounter == i ) {
-      var this_encounter = adventure.encounters[ i ];
-      __d( this_encounter );
-    }
-  }
-}
-// */
-
 //
 function _next_encounter(){
   var next = adventure.current_encounter + 1;
@@ -64,20 +51,25 @@ function _encounter_lose( current_encounter ){
 
 //
 function _do_current_encounter(){
+  // if the adventure is complete, there is no encounter
   if ( adventure.completed ) {
     __d('There are no more encounters left in this adventure.');
     return;
   }
+
+  // get the current encounter details
   if ( adventure.encounters[ adventure.current_encounter ] ) {
     var current_encounter = adventure.encounters[ adventure.current_encounter ];
 
     __d(current_encounter);
 
+    // calculate the pc's attack vs this type of encounter
     if ( pc[ current_encounter.vs ] ){
       var attack = _pc_attack( current_encounter );
 
       __d(attack + ' vs ' + current_encounter.dc );
 
+      // determine success or failure
       if ( attack >= current_encounter.dc ){
         __d('you won the encounter!');
       }
@@ -85,6 +77,8 @@ function _do_current_encounter(){
         _encounter_lose( current_encounter );
       }
     }
+
+    // increment to next encounter
     __d( pc.name + ' hp: ' + pc.hp );
     _next_encounter();
   }
