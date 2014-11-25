@@ -42,7 +42,11 @@ encounter = {
 
 var Encounter = {
 
-  // blank model creation
+  /**
+   * Provides a template for an encounter object
+   *
+   * @returns {object} blank encounter
+   */
   blueprint: function(){
     var encounter = {
       title: '',
@@ -59,7 +63,13 @@ var Encounter = {
     return encounter;
   },
 
-  // simple encounter creation
+  /**
+   * Create a new encounter object
+   *    - allows a partial encounter (called a stub) to populate the new object
+   *
+   * @param stub
+   * @returns {object} encounter
+   */
   create: function( stub ){
 
     // new blank model
@@ -75,16 +85,21 @@ var Encounter = {
     return encounter;
   },
 
-  // execute an encounter action
+  /**
+   * Execute a the current Game action
+   *
+   * @param Game
+   * @param done
+   */
   doAction: function( Game, done ){
-    var player = Game.player;
-    var pc = Game.pc;
-    var encounter = Game.encounter;
+    var player       = Game.player;
+    var pc           = Game.pc;
+    var encounter    = Game.encounter;
     var input_action = Game.input.action;
-    var context = Game.allowed_actions[ input_action ];
+    var context      = Game.allowed_actions[ input_action ];
 
-    console.log(context);
-    console.log(encounter);
+    //console.log(context);
+    //console.log(encounter);
 
     // find action
     for( var i = 0; i < encounter.actions.length; i++ ){
@@ -92,17 +107,16 @@ var Encounter = {
       if ( encounter.actions[ i ].cmd == input_action ){
         var action = encounter.actions[ i ];
 
-        console.log('found matching action');
-        console.log(action);
+        //console.log('found matching action');
+        //console.log(action);
 
         // execute callback action directly
         if ( typeof action.callback === 'function'){
-          console.log('action has a callback');
+          //console.log('action has a callback');
           action.callback( Game, done );
         }
         else if ( encounter[ action.cmd ] ) {
-          console.log('action is a method on the encounter object');
-
+          //console.log('action is a method on the encounter object');
           encounter[ action.cmd ]( Game, done);
         }
         else {

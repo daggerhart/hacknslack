@@ -2,6 +2,11 @@
 // PC constructor
 var Character = {
 
+  /**
+   * Provides a template for a character object
+   *
+   * @returns {object} blank character
+   */
   blueprint: function(){
     return {
       class: String,
@@ -20,6 +25,13 @@ var Character = {
     };
   },
 
+  /**
+   * Create a new character object
+   *    - allows a partial character (called a stub) to populate the new object
+   *
+   * @param stub
+   * @returns {object} character
+   */
   create: function create( stub ) {
     var character = this.blueprint();
 

@@ -18,8 +18,9 @@ module.exports = {
         }
       ],
 
+      // action "savage"
       savage: function ( Game, done ){
-        var stub = {
+        var new_character = {
           class: 'savage',
           attributes: {
             body: 10,
@@ -29,7 +30,7 @@ module.exports = {
           }
         };
 
-        Game.character = Game.components.Character.create( stub );
+        Game.character = Game.components.Character.create( new_character );
         Game.adventure = require('./adventureOne');
         Game.encounter = Game.adventure.encounters[0];
 

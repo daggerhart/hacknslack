@@ -1,5 +1,10 @@
 var Adventure = {
 
+  /**
+   * Provides a template for an adventure object
+   *
+   * @returns {object} blank adventure
+   */
   blueprint: function(){
     return {
       encounters: []
@@ -7,9 +12,11 @@ var Adventure = {
   },
 
   /**
+   * Create a new adventure object
+   *    - allows a partial adventure (called a stub) to populate the new object
    *
    * @param stub
-   * @returns {exports}
+   * @returns {object} adventure
    */
   create: function( stub ){
     var adventure = this.blueprint();
@@ -28,7 +35,7 @@ var Adventure = {
    *
    * @param num_of_encounters
    * @param difficulty
-   * @returns {exports}
+   * @returns {object} adventure
    */
   generate: function( num_of_encounters, difficulty ){
     var math = require('../math');

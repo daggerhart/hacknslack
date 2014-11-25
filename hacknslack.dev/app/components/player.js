@@ -4,7 +4,9 @@ var Schema       = mongoose.Schema;
 var Player = {
 
   /**
-   * Provides a template for a new player object
+   * Provides a template for a player object
+   *
+   * @return {object} blank player
    */
   blueprint: function(){
     return {
@@ -70,10 +72,14 @@ var Player = {
   }
 }
 
-// DB Schema
+/**
+ * Mongoose schema
+ */
 var playerSchema = new Schema( Player.blueprint() );
 
-// DB Model, contains crud
+/**
+ * Mongoose model
+ */
 Player.model = mongoose.model( 'Player', playerSchema, 'players' );
 
 module.exports = Player;

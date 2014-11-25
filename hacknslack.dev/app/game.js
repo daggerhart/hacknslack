@@ -4,12 +4,20 @@ var fs          = require('fs');
 
 var Game = {
 
+  /**
+   * Provides a template for a game object
+   *
+   * @returns {object} blank game
+   */
   blueprint: function(){
     return {
       // global methods
       GameActions: GameActions,
       GameEvents: GameEvents,
+      // game components
       components: {},
+      // game utilities
+      utils: {},
 
       // request
       raw_input: '',
@@ -28,12 +36,18 @@ var Game = {
       // response
       output: {
         payload: "", // slack expects a payload
-        data: [],    // data that will be templated into the payload for output
+        data: [],    // data that will be processed into the payload for output
         debug: []
       }
     }
   },
 
+  /**
+   * Create a new game object from the request query
+   *
+   * @param req
+   * @returns {object}
+   */
   create: function ( req ) {
     var game = this.blueprint();
 
@@ -49,7 +63,7 @@ var Game = {
       Player:    require('./components/player')
     };
 
-    game.util = {
+    game.utils = {
       Math: require('./lib/math')
     };
 

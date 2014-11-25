@@ -16,6 +16,11 @@
 
 var Action = {
 
+  /**
+   * Provides a template for an action object
+   *
+   * @returns {object} action
+   */
   blueprint: function(){
     return {
       cmd: '',
@@ -23,6 +28,13 @@ var Action = {
     }
   },
 
+  /**
+   * Create a new action object
+   *    - allows a partial action (called a stub) to populate the new object
+   *
+   * @param stub
+   * @returns {object}
+   */
   create: function( stub ){
     var action = this.blueprint();
 
@@ -34,8 +46,6 @@ var Action = {
 
     return action;
   }
-
-
 }
 
 module.exports = Action;

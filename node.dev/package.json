@@ -1,0 +1,10 @@
+{
+  "name": "node_dev_example",
+  "version": "0.0.1",
+  "description": "sample of different node server basics",
+  "dependencies": {
+    "mime": "~1.2.7",
+    "mongodb": "~2.0",
+    "mongoose": "3.8.19"
+  }
+}

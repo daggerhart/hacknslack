@@ -15,6 +15,11 @@
 
 var Effect = {
 
+  /**
+   * Provides a template for an effect object
+   *
+   * @returns {object} blank effect
+   */
   blueprint: function(){
     return {
       amount: 0,
@@ -23,6 +28,13 @@ var Effect = {
     }
   },
 
+  /**
+   * Create a new effect object
+   *    - allows a partial effect (called a stub) to populate the new object
+   *
+   * @param stub
+   * @returns {object} effect
+   */
   create: function( stub ){
     // blank model
     var effect = this.blueprint();

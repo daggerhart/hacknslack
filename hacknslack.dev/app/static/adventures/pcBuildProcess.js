@@ -1,5 +1,4 @@
 
-
 module.exports = {
 
   is_static: true,
@@ -20,8 +19,8 @@ module.exports = {
         }
       ],
 
+      // action "standard"
       standard: function( Game, done ){
-        console.log('standard method called');
         Game.adventure = require('./pcBuildStandard');
         Game.encounter = Game.adventure.encounters[0];
         done();

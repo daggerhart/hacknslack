@@ -27,7 +27,7 @@ var GameActions = {
     var challenge = Game.encounter.challenge;
 
     var stat = Game.character.attributes[ challenge.attribute ];
-    var roll = Game.util.Math.random(1, stat);
+    var roll = Game.utils.Math.random(1, stat);
 
     Game.output.data.push("rolled a " + roll);
 

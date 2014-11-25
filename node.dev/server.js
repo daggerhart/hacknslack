@@ -6,15 +6,14 @@ var path = require('path');
 
 var mime = require('mime');
 
+var url = require('url');
+
 var cache = {};
 
-var mongo = require('mongoskin');
+// mongoose is a library for interacting with mongodb
+//var mongoose   = require('mongoose');
+//mongoose.connect('mongodb://localhost:27017/testdb');
 
-// test db
-var db = mongo.db('mongodb://localhost:27017/testdb', { native_parser: true });
-
-// real db
-//var db = mongo.db('mongodb://hacker:slacker@localhost:27017/hacknslack', {native_parser:true});
 
 /**
  *
@@ -74,17 +73,8 @@ function serveStatic( response, cache, absPath ) {
  * @param response
  */
 function jsonEndpoint( request, response ){
-  var GameSystem = require('./lib/GameSystem').GameSystem;
-
-  GameSystem.makeGameFromRequest( request, function( Game ){
-    GameSystem.runGame( Game, function( Game ){
-      GameSystem.saveGame( Game, function( Game ) {
-        console.log('final game -------------------');
-        console.log( Game);
-        jsonSend( response, Game.output );
-      });
-    });
-  });
+  console.log('json endpoint hit -------------------');
+  jsonSend( response, { hello: 'world', this_endpoint: 'really works!' } );
 }
 
 /**
@@ -104,13 +94,17 @@ function jsonSend( response, data ){
  * da server
  */
 var server = http.createServer( function( request, response ) {
+
+  console.log('server hit with request!');
+  console.log('%s %s', request.method, request.url );
+  //console.log( request );
+
   var filePath = false;
 
   // pass the db connection along with request into the game factory
-  request.db = db;
+  //request.db = db;
 
   // parse GET query
-  var url = require('url');
   request.query = url.parse( request.url, true).query;
 
 
@@ -125,17 +119,13 @@ var server = http.createServer( function( request, response ) {
   }
 
   if ( filePath ){
+    console.log('serving file: ' + filePath);
+
     var absPath = './' + filePath;
     serveStatic( response, cache, absPath );
   }
 });
 
-//console.log(server);
-server.listen( 3001, function() {
-  console.log('Server listening on 3001');
+server.listen( 3000, function() {
+  console.log('Server listening on 3000');
 });
-
-
-function __d(v) {
-  console.log(v);
-}

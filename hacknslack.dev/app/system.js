@@ -299,6 +299,7 @@ module.exports = {
     // TODO move this to somewhere better
     // append allowed actions to every output
     Game.output.data.push( Game.encounter.title );
+    Game.output.data.push( Game.encounter.desc );
 
     Object.keys( Game.allowed_actions).forEach(function( key ){
       Game.output.data.push( '- ' + key );
