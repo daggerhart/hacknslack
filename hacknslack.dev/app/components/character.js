@@ -11,6 +11,7 @@ var Character = {
     return {
       class: String,
       level: 1,
+      actions: ['status', 'equip'],
       equipment: {
         weapon: {},
         armor: {},

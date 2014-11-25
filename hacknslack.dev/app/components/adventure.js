@@ -60,6 +60,20 @@ var Adventure = {
     }
 
     return adventure;
+  },
+
+  nextEncounter: function( Game ){
+    var i = Game.player.adventures.current_encounter;
+    var next = i + 1;
+
+    if ( Game.adventure.encounters[ next ]){
+      // increment to next encounter
+      Game.encounter = Game.adventure.encounters[ next ];
+      Game.player.adventures.current_encounter = next;
+    }
+    else {
+      // generate a new adventure
+    }
   }
 }
 

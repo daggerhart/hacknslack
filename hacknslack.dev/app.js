@@ -47,8 +47,8 @@ app.use('/json',
     console.log("-----------------------------");
     console.log('Game should be loaded, executed, and saved.');
     console.log("-----------------------------");
-    console.log( req.Game );
-    console.log("-----------------------------");
+    //console.log( req.Game );
+    //console.log("-----------------------------");
     res.json( req.Game.output );
 });
 

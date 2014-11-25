@@ -55,6 +55,8 @@ module.exports = {
   loadGame: function( req, res, next ) {
     var Game = req.Game;
 
+    console.log('-------- load game ---------');
+
     // login or create a player
     Game.components.Player.login( req, function( player ){
 
@@ -75,10 +77,7 @@ module.exports = {
         }
       }
 
-      console.log('-------- load game adventure ---------');
-      console.log( Game.adventure );
-
-      Game.GameEvents.doEvent('loadGame', Game );
+      //Game.GameEvents.doEvent('loadGame', Game );
 
       if ( next ){
         next();
@@ -147,10 +146,6 @@ module.exports = {
     if ( Game.character && Game.character.items ){
       // handle actions provided by items
     }
-
-    // global actions
-    actions['status'] = 'global';
-    actions['sit'] = 'global';
 
     Game.allowed_actions = actions;
 
@@ -268,15 +263,16 @@ module.exports = {
     var Game = req.Game;
     // save pc data
 
-    Game.GameEvents.doEvent('saveGame', Game );
-
-    console.log('----------- same game adventure --------------');
-    console.log( Game.adventure );
+    console.log('----------- save game --------------');
+    //Game.GameEvents.doEvent('saveGame', Game );
 
     var player = Game.player;
     player.adventures.current = Game.adventure;
     player.characters.current = Game.character;
 
+    // manually mark the character as modified to enforce saving
+    // https://github.com/LearnBoost/mongoose/issues/1598
+    player.markModified('characters.current');
     player.save(function(err, results, affected){
       if (err) throw err;
 

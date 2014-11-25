@@ -58,6 +58,8 @@ var GameActions = {
     }
 
     // go to next encounter
+    Game.components.Adventure.nextEncounter( Game );
+
     done();
   }
 }
