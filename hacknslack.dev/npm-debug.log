@@ -1,0 +1,101 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node', '/usr/local/bin/npm', 'install' ]
+2 info using npm@1.4.28
+3 info using node@v0.10.33
+4 warn package.json hacknslack@0.0.1 No repository field.
+5 warn package.json hacknslack@0.0.1 No README data
+6 verbose readDependencies using package.json deps
+7 verbose install where, deps [ '/var/www/hacknslack.dev',
+7 verbose install   [ 'socket.io',
+7 verbose install     'mime',
+7 verbose install     'mongodb',
+7 verbose install     'mongoskin',
+7 verbose install     'mongoose',
+7 verbose install     'express',
+7 verbose install     'deepmerge' ] ]
+8 info preinstall hacknslack@0.0.1
+9 verbose readDependencies using package.json deps
+10 verbose already installed skipping socket.io@~0.9.6 /var/www/hacknslack.dev
+11 verbose already installed skipping mime@~1.2.7 /var/www/hacknslack.dev
+12 verbose already installed skipping mongodb@~2.0 /var/www/hacknslack.dev
+13 verbose already installed skipping mongoskin@~1.4.4 /var/www/hacknslack.dev
+14 verbose already installed skipping mongoose@3.8.19 /var/www/hacknslack.dev
+15 verbose already installed skipping express@4.10.x /var/www/hacknslack.dev
+16 verbose cache add [ 'deepmerge@>=0.2.9', null ]
+17 verbose cache add name=undefined spec="deepmerge@>=0.2.9" args=["deepmerge@>=0.2.9",null]
+18 verbose parsed url { protocol: null,
+18 verbose parsed url   slashes: null,
+18 verbose parsed url   auth: null,
+18 verbose parsed url   host: null,
+18 verbose parsed url   port: null,
+18 verbose parsed url   hostname: null,
+18 verbose parsed url   hash: null,
+18 verbose parsed url   search: null,
+18 verbose parsed url   query: null,
+18 verbose parsed url   pathname: 'deepmerge@%3E=0.2.9',
+18 verbose parsed url   path: 'deepmerge@%3E=0.2.9',
+18 verbose parsed url   href: 'deepmerge@%3E=0.2.9' }
+19 verbose cache add name="deepmerge" spec=">=0.2.9" args=["deepmerge",">=0.2.9"]
+20 verbose parsed url { protocol: null,
+20 verbose parsed url   slashes: null,
+20 verbose parsed url   auth: null,
+20 verbose parsed url   host: null,
+20 verbose parsed url   port: null,
+20 verbose parsed url   hostname: null,
+20 verbose parsed url   hash: null,
+20 verbose parsed url   search: null,
+20 verbose parsed url   query: null,
+20 verbose parsed url   pathname: '%3E=0.2.9',
+20 verbose parsed url   path: '%3E=0.2.9',
+20 verbose parsed url   href: '%3E=0.2.9' }
+21 verbose addNamed [ 'deepmerge', '>=0.2.9' ]
+22 verbose addNamed [ null, '>=0.2.9' ]
+23 silly lockFile cf2976bd-deepmerge-0-2-9 deepmerge@>=0.2.9
+24 verbose lock deepmerge@>=0.2.9 /root/.npm/cf2976bd-deepmerge-0-2-9.lock
+25 silly addNameRange { name: 'deepmerge', range: '>=0.2.9', hasData: false }
+26 verbose request where is /deepmerge
+27 verbose request registry https://registry.npmjs.org/
+28 verbose request id e16fbb6af566c56f
+29 verbose url raw /deepmerge
+30 verbose url resolving [ 'https://registry.npmjs.org/', './deepmerge' ]
+31 verbose url resolved https://registry.npmjs.org/deepmerge
+32 verbose request where is https://registry.npmjs.org/deepmerge
+33 info trying registry request attempt 1 at 15:24:52
+34 http GET https://registry.npmjs.org/deepmerge
+35 http 200 https://registry.npmjs.org/deepmerge
+36 silly registry.get cb [ 200,
+36 silly registry.get   { date: 'Tue, 25 Nov 2014 15:24:53 GMT',
+36 silly registry.get     server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+36 silly registry.get     etag: '"EMRCD9PI145E7P81C6D9TBNZB"',
+36 silly registry.get     'content-type': 'application/json',
+36 silly registry.get     'cache-control': 'max-age=60',
+36 silly registry.get     'content-length': '7911',
+36 silly registry.get     'accept-ranges': 'bytes',
+36 silly registry.get     via: '1.1 varnish',
+36 silly registry.get     age: '7',
+36 silly registry.get     'x-served-by': 'cache-iad2125-IAD',
+36 silly registry.get     'x-cache': 'HIT',
+36 silly registry.get     'x-cache-hits': '1',
+36 silly registry.get     'x-timer': 'S1416929093.138907,VS0,VE0',
+36 silly registry.get     vary: 'Accept',
+36 silly registry.get     'keep-alive': 'timeout=10, max=50',
+36 silly registry.get     connection: 'Keep-Alive' } ]
+37 silly addNameRange number 2 { name: 'deepmerge', range: '>=0.2.9', hasData: true }
+38 silly addNameRange versions [ 'deepmerge',
+38 silly addNameRange   [ '0.0.1', '0.1.0', '0.2.1', '0.2.4', '0.2.5', '0.2.6', '0.2.7' ] ]
+39 silly lockFile cf2976bd-deepmerge-0-2-9 deepmerge@>=0.2.9
+40 silly lockFile cf2976bd-deepmerge-0-2-9 deepmerge@>=0.2.9
+41 error notarget No compatible version found: deepmerge@'>=0.2.9'
+41 error notarget Valid install targets:
+41 error notarget ["0.0.1","0.1.0","0.2.1","0.2.4","0.2.5","0.2.6","0.2.7"]
+41 error notarget
+41 error notarget This is most likely not a problem with npm itself.
+41 error notarget In most cases you or one of your dependencies are requesting
+41 error notarget a package version that doesn't exist.
+42 error System Linux 3.13.0-24-generic
+43 error command "/usr/local/bin/node" "/usr/local/bin/npm" "install"
+44 error cwd /var/www/hacknslack.dev
+45 error node -v v0.10.33
+46 error npm -v 1.4.28
+47 error code ETARGET
+48 verbose exit [ 1, true ]

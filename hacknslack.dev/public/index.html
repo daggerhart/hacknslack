@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Page Title</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+  <style type="text/css">
+    .navbar {
+      border-radius: 0;
+    }
+    .slack-input {
+      padding: 0.5em 0;
+    }
+    #slack-output {
+      border: 1px solid #bbb;
+    }
+    #debug-output {
+      border: 1px solid red;
+    }
+  </style>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="/js/dev-console.js"></script>
+  <!--<script src="/js/GameActions.js"></script>-->
+  <!--<script src="/js/GameSystem.js"></script>-->
+</head>
+
+<body>
+  <nav class="navbar navbar-inverse" role="navigation">
+    <div class="container">
+    <form role="form">
+        <div class="row slack-input">
+          <div class="col-xs-8">
+            <input id="slack-input" type="text" name="slack-input" class="form-control" value="" placeholder="Assume /hack" />
+          </div>
+          <div class="col-xs-2">
+            <input id="slack-submit" type="button" name="submit" class="btn" value="Send" />
+          </div>
+        </div>
+      </form>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="row">
+      user_name: <input id="user_name" name="user_name" value="jonathan" /><br />
+      user_id: <input id="user_id" name="user_id" value="123" />
+    </div>
+
+    <div class="row">
+      <div id="slack-output" class="col-sm-6"></div>
+      <div id="debug-output" class="col-sm-6"></div>
+    </div>
+  </div>
+</body>
+
+</html>
