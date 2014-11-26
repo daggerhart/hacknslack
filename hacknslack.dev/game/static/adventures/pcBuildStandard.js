@@ -20,6 +20,7 @@ module.exports = {
 
       // action "savage"
       savage: function ( Game, done ){
+
         var new_character = {
           class: 'savage',
           attributes: {

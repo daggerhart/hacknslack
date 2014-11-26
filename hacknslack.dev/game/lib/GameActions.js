@@ -9,8 +9,34 @@ var GameActions = {
    * @param done
    */
   status: function( Game, done ){
+    var p = Game.player;
+    var c = Game.character;
+    //var e = Game.encounter;
 
-    Game.output.data.push("show me the status ho");
+    Game.output.data.push( 'You: ' + p.user_name );
+    Game.output.data.push( 'Class: ' + c.class );
+    Game.output.data.push( 'HP: ' + c.attributes.hp );
+    Game.output.data.push( 'Body: ' + c.attributes.body );
+    Game.output.data.push( 'Mind: ' + c.attributes.mind );
+    Game.output.data.push( 'Spirit: ' + c.attributes.spirit );
+
+    Game.output.data.push('Inventory');
+
+    // equipment
+    Object.keys(c.equipment).forEach(function( key ){
+      if ( c.equipment[ key].length ) {
+        Game.output.data.push( key + ': ' + c.equipment[ key ] );
+      }
+    });
+
+    // items
+    if ( c.items ) {
+      for (var i = 0; i < c.items.length; i++) {
+        Game.output.data.push('- ' + c.items.title );
+      }
+    }
+
+    Game.output.data.push();
 
     done();
   },

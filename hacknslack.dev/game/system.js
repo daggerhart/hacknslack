@@ -294,6 +294,9 @@ module.exports = {
 
     // TODO move this to somewhere better
     // append allowed actions to every output
+    if ( Game.output.data.length ) {
+      Game.output.data.push('<hr style="margin: 0; border-bottom: 1px dashed #bbb">');
+    }
     Game.output.data.push( Game.encounter.title );
     Game.output.data.push( Game.encounter.desc );
 
@@ -304,11 +307,13 @@ module.exports = {
 
     // provide current character info on each action
     if ( Game.character.attributes ) {
-      Game.output.data.unshift('Class: ' + Game.character.class + ' -- HP: ' + Game.character.attributes.hp );
+      Game.output.data.unshift('<div style="border-bottom: 1px dashed #bbb;">Class: ' + Game.character.class + ' -- HP: ' + Game.character.attributes.hp + '</div>' );
     }
 
     // should be an array of stuff to output
     payload = Game.output.data.join('<br>');
+
+    payload+= '<hr style="border-bottom: 2px solid blue">';
 
     req.Game.output.payload = payload;
 

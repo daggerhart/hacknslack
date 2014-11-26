@@ -25,7 +25,7 @@ app
     next();
   });
 
-var System = require('./app/system');
+var System = require('./game/system');
 
 /**
  * JSON developer endpoint
