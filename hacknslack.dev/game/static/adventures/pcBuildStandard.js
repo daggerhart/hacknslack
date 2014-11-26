@@ -15,6 +15,10 @@ module.exports = {
         {
           cmd: "savage",
           text: "A savage"
+        },
+        {
+          cmd: "merchant",
+          text: "a gilded merchant"
         }
       ],
 
@@ -32,7 +36,31 @@ module.exports = {
         };
 
         Game.character = Game.components.Character.create( new_character );
+
         Game.adventure = require('./adventureOne');
+        Game.encounter = Game.adventure.encounters[0];
+
+        done();
+      },
+
+      merchant: function( Game, done ){
+
+        var new_character = {
+          class: 'merchant',
+          attributes: {
+            body: 6,
+            mind: 8,
+            spirit: 10,
+            hp: 7
+          }
+        };
+
+        var character = Game.components.Character.create( new_character );
+
+        Game.character = character;
+
+        Game.adventure = require('./adventureOne');
+
         Game.encounter = Game.adventure.encounters[0];
 
         done();

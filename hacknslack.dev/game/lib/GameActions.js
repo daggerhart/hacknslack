@@ -51,7 +51,6 @@ var GameActions = {
     Game.output.data.push("that's an attack!");
 
     var challenge = Game.encounter.challenge;
-
     var stat = Game.character.attributes[ challenge.attribute ];
     var roll = Game.utils.Math.random(1, stat);
 
@@ -65,7 +64,7 @@ var GameActions = {
       for ( var i = 0; i < Game.encounter.success.length; i++ ){
         var effect = Game.encounter.success[ i ];
         // do effect
-        if ( effect.type == 'dmg' ){
+        if ( effect.type == 'heal' ){
 
         }
       }
@@ -109,5 +108,14 @@ GameActions.spell = function( Game, done ){
 
   done();
 }
+
+GameActions.poop = function( Game, done ){
+  Game.output.data.push("huuunnnn  -- emit defensive - ah - fluids.");
+
+  done();
+}
+
+
+
 
 module.exports = GameActions;

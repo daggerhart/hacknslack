@@ -8,7 +8,7 @@
 
  var effect = {
    amount: N,
-   type: ( heal | dmg | item | bonus | attack | specific item),
+   type: ( heal | dmg | item | bonus | attack | specific item | message ),
    attribute_types: ( body | mind | spirit )
  }
  */

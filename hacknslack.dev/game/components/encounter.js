@@ -52,6 +52,7 @@ var Encounter = {
       title: '',
       desc: '',
       actions: [],
+      tags: [],
       challenge: {
         rating: 0,
         attribute: ''

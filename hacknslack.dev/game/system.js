@@ -147,6 +147,8 @@ module.exports = {
       // handle actions provided by items
     }
 
+    //actions.poop = 'global';
+
     Game.allowed_actions = actions;
 
     if ( next ) {
@@ -301,7 +303,7 @@ module.exports = {
     Game.output.data.push( Game.encounter.desc );
 
     Object.keys( Game.allowed_actions).forEach(function( key ){
-      Game.output.data.push( '- ' + key );
+      Game.output.data.push( '- ' + key  );
     });
     // end
 

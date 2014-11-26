@@ -4,6 +4,7 @@ module.exports = [
   {
     title: 'Ancient Skeleton',
     desc: '',
+    tags: ['monster'],
     challenge: {
       attribute: 'body'
     }
@@ -11,13 +12,15 @@ module.exports = [
   {
     title: 'Pixies',
     desc: '',
+    tags: ['monster'],
     challenge: {
       attribute: 'spirit'
     }
   },
   {
-    title: 'Pit Trap',
+    title: 'Pit Demon',
     desc: '',
+    tags: ['monster'],
     challenge: {
       attribute: 'body'
     }
@@ -25,6 +28,7 @@ module.exports = [
   {
     title: 'Traveling Wizard Cannibals',
     desc: '',
+    tags: ['monster'],
     challenge: {
       attribute: 'mind'
     }

@@ -33,7 +33,7 @@ var Character = {
    * @param stub
    * @returns {object} character
    */
-  create: function create( stub ) {
+  create: function ( stub ) {
     var character = this.blueprint();
 
     if (typeof stub === 'object'){

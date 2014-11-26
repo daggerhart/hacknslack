@@ -21,7 +21,7 @@ var Game = {
 
       // request
       raw_input: '',
-      query: '',
+      query: {},
 
       // single game specific
       allowed_actions: {}, // dynamically populated by system
