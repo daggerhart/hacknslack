@@ -1,4 +1,4 @@
-/*
+/**
 encounter = {
   // (string)
   title: "What do you want to to?",

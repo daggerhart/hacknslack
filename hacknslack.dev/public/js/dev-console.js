@@ -2,12 +2,13 @@
 (function($){
 
   $(document).ready(function(){
+    var debug_i = 0;
 
     var $slack_input = $('#slack-input'),
         $slack_submit = $('#slack-submit');
 
 
-    $slack_submit.click( function(event){
+    $slack_submit.click( function( event ){
       // get the text
       var text = $slack_input.val();
 
@@ -22,13 +23,16 @@
 
         // output success to screen
         success: function( data ){
+          debug_i++;
+
           var $debug_output = $('#debug-output'),
               $slack_output = $('#slack-output');
 
           $slack_output.prepend( '<div>' + data.payload + '</div>' );
 
           for ( var i = 0; i < data.debug.length; i++ ){
-            $debug_output.prepend( '<div>' + data.debug[i] + '</div>' );
+            $debug_output.prepend( '<div>' + debug_i + ': ' + data.debug[i] + '</div>' );
+            console.log( data.debug[ i ] );
           }
           $debug_output.prepend('<hr style="border: 1px dashed #bbb;" />');
         }

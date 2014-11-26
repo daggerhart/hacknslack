@@ -114,7 +114,7 @@ module.exports = {
           attribute: 'spirit'
         }
         Game.output.data.push("You try to turn it.");
-        Game.util.GameActions.attack( Game, function(){
+        Game.GameActions.attack( Game, function(){
           done();
         });
       },
@@ -125,7 +125,7 @@ module.exports = {
           attribute: 'body'
         }
         Game.output.data.push("you tried to push it");
-        Game.utils.GameActions.attack( Game, function(){
+        Game.GameActions.attack( Game, function(){
           done();
         });
       }
