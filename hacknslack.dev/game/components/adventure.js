@@ -1,3 +1,24 @@
+/**
+ * An adventure is a grouped list of encounters.
+ *
+ * adventure = {
+ *   // (array of strings) tags for this adventure. can be used to get specific encounter types
+ *   tags: [],
+ *
+ *   // (array of effects) executed when adventure is complete
+ *   completed: [
+ *     {effect object},
+ *     {effect object}
+ *   ],
+ *
+ *   // (array of encounters)
+ *   encounters: [
+ *     { encounter object },
+ *     { encounter object },
+ *     ....
+ *   ],
+ * }
+ */
 var Adventure = {
 
   /**
@@ -7,6 +28,8 @@ var Adventure = {
    */
   blueprint: function(){
     return {
+      tags: [],
+      completed: [],
       encounters: []
     }
   },

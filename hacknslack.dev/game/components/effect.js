@@ -1,18 +1,19 @@
-/*
-
- An effect is an object that can automatically modify the game state.
- Generally used to deal damage, heal HP, or provide item drops
-
- ----------------
- Template:
-
- var effect = {
-   amount: N,
-   type: ( heal | dmg | item | bonus | attack | specific item | message ),
-   attribute_types: ( body | mind | spirit )
- }
+/**
+ * An effect is an object that can automatically modify the game state.
+ * Generally used to deal damage, heal HP, or provide item drops
+ *
+ *
+ * effect = {
+ *   // (number) - the amount of "type" to perform
+ *   amount: N,
+ *
+ *   // (string) - determines how the amount is applied
+ *   type: ( heal | dmg | item | bonus | attack | specific item | message ),
+ *
+ *   // (string) - attribute the amount is applied to
+ *   attribute_types: ( body | mind | spirit )
+ * }
  */
-
 var Effect = {
 
   /**

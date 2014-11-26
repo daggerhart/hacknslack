@@ -1,5 +1,37 @@
-
-// PC constructor
+/**
+ *
+ * character = {
+ *   // (string) - unique character class
+ *   class: String,
+ *
+ *   // (Number) - character level
+ *   level: 1,
+ *
+ *   // (array of strings) - refer to global actions this character can perform
+ *   actions: ['status', 'equip'],
+ *
+ *   // (object) of specific properties, each property's value is an item object
+ *   equipment: {
+ *     weapon: {item},
+ *     armor: {item},
+ *     gear: {item}
+ *   },
+ *
+ *   // (object) of specific properties, each property's value is a number
+ *   attributes: {
+ *     body: Number,
+ *     mind: Number,
+ *     spirit: Number,
+ *     hp: Number
+ *   },
+ *
+ *   // (array) of item objects
+ *   items:[
+ *     {item},
+ *     {item}
+ *   ]
+ * }
+ */
 var Character = {
 
   /**
@@ -22,7 +54,8 @@ var Character = {
         mind: Number,
         spirit: Number,
         hp: Number
-      }
+      },
+      items: []
     };
   },
 

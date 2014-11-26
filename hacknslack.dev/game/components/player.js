@@ -1,3 +1,37 @@
+/**
+ * A player is anyone who interacts with the game.
+ * The player object stores the entire state of an individual player.
+ *    Including:  characters and adventures w/ encounters
+ *
+ * player = {
+ *   // (string) - provided by system when player interacts
+ *   user_name: String,
+ *
+ *   // (string) - provided by system when player interacts*
+ *   user_id: String,
+ *
+ *   // the player's character data
+ *   characters: {
+ *     // the player's current character
+ *     current: {},
+ *
+ *     // (array of character objects) - the player's other characters
+ *     others: []
+ *   },
+ *
+ *   // the player's adventure data
+ *   adventures: {
+ *     // current encounter index for the current adventure
+ *     current_encounter: Number,
+ *
+ *     // (adventure object) - current adventure
+ *     current: {},
+ *
+ *     // (adventure object) - previous adventure (not sure we need this)
+ *     previous: {}
+ *   }
+ * }
+ */
 var mongoose     = require('mongoose');
 var Schema       = mongoose.Schema;
 
@@ -17,13 +51,8 @@ var Player = {
         others: []
       },
       adventures: {
-        // current encounter index
         current_encounter: Number,
-
-        // current encounter object
         current: {},
-
-        // previous encounter
         previous: {}
       }
     }
