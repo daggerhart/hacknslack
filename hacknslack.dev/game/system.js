@@ -86,11 +86,12 @@ module.exports = {
   },
 
   /**
-   *  Get context from:
-   *      Game.encounter.actions,
-   *      Game.adventure.actions,
+   *  Get actions from context:
+   *      Game.encounter,
+   *      Game.adventure,
    *      Game.character,
    *      Game.character.equipment,
+   *      Game.character.items
    *      GlobalActions
    *
    * @param req
@@ -99,57 +100,39 @@ module.exports = {
    */
   findAllowedActions: function ( req, res, next ) {
     var Game = req.Game;
-    var actions = {};
+    Game.allowed_actions = {};
 
-
-    if ( Game.adventure.actions ) {
-      for( var i = 0; i < Game.adventure.actions.length; i++ ){
-        // strings are references to global actions
-        if ( typeof Game.adventure.actions[ i ] === 'string'){
-          actions[ Game.adventure.actions[ i ] ] = 'global';
-        }
-        else {
-          actions[ Game.adventure.actions[ i ].cmd ] = 'adventure';
-        }
-      }
+    if ( Game.adventure && Game.adventure.actions ) {
+      Game.components.Action.getActions( Game, Game.adventure, 'adventure');
     }
 
     if ( Game.encounter && Game.encounter.actions) {
-      for( var i = 0; i < Game.encounter.actions.length; i++){
-        // strings are references to global actions
-        if ( typeof Game.encounter.actions[ i ] === 'string'){
-          actions[ Game.encounter.actions[ i ] ] = 'global';
-        }
-        else {
-          actions[ Game.encounter.actions[ i ].cmd ] = 'encounter';
-        }
-      }
+      Game.components.Action.getActions( Game, Game.encounter, 'encounter');
     }
 
     if ( Game.character && Game.character.actions ){
-      // what if the pc had actions of their own? wtF?
-      for( var i = 0; i < Game.character.actions.length; i ++){
-        // strings are references to global actions
-        if ( typeof Game.character.actions[ i ] === 'string'){
-          actions[ Game.character.actions[ i ] ] = 'global';
+      Game.components.Action.getActions( Game, Game.character, 'character');
+    }
+
+    if ( Game.character && Game.character.equipment ){
+      Object.keys( Game.character.equipment).forEach( function( key ){
+        if ( Game.character.equipment[ key ].actions ) {
+          Game.components.Action.getActions(Game, Game.character.equipment[key], 'equipment');
         }
-        else {
-          actions[ Game.character.actions[ i ].cmd ] = 'character';
+      });
+    }
+
+    if ( Game.character && Game.character.items ){
+      for( var i = 0; i < Game.character.items.length; i++ ) {
+        if (Game.character.items[i].actions) {
+          Game.components.Action.getActions(Game, Game.character.items[i], 'item');
         }
       }
     }
 
-    if ( Game.character && Game.character.equipment ){
-      // handle actions provided by equipment
-    }
-
-    if ( Game.character && Game.character.items ){
-      // handle actions provided by items
-    }
-
-    //actions.poop = 'global';
-
-    Game.allowed_actions = actions;
+    // provide help action
+    Game.allowed_actions.help = Game.GameActions.actions.help;
+    Game.allowed_actions.help.context = 'global';
 
     if ( next ) {
       next();
@@ -207,7 +190,7 @@ module.exports = {
   validateGame: function( req, res, next ) {
     var Game = req.Game;
 
-    if ( Game.input.action && Game.allowed_actions[ Game.input.action] ) {
+    if ( Game.input.action && Game.allowed_actions[ Game.input.action ] ) {
       Game.input.valid = true;
       Game.input.context = Game.allowed_actions[ Game.input.action ];
       Game.output.debug.push("doing action - " + Game.input.action );
@@ -230,24 +213,13 @@ module.exports = {
    */
   executeGame: function( req, res, next ) {
     var Game = req.Game;
+
+    // TODO: execute action within context
+
     if ( Game.input.valid ) {
-      // look for action in global scope
-      if ( Game.GameActions[ Game.input.action ] ) {
-
-        Game.GameActions[ Game.input.action ](Game, function () {
-          Game.input.executed = true;
-          next();
-        });
-
-      }
-      // do the encounter
-      else {
-
-        Game.components.Encounter.doAction( Game, function(){
-          next();
-        });
-
-      }
+      Game.components.Action.doAction( Game, function(){
+        next();
+      });
     }
     else {
       next();
@@ -302,8 +274,10 @@ module.exports = {
     Game.output.data.push( Game.encounter.title );
     Game.output.data.push( Game.encounter.desc );
 
-    Object.keys( Game.allowed_actions).forEach(function( key ){
-      Game.output.data.push( '- ' + key  );
+    Object.keys( Game.allowed_actions ).forEach(function( key ){
+      if ( ! Game.allowed_actions[ key].silent ) {
+        Game.output.data.push( '- ' + key + ': ' + Game.allowed_actions[ key ].text );
+      }
     });
     // end
 

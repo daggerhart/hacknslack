@@ -2,6 +2,44 @@
 // init
 var GameActions = {
 
+  // create the action text and comment here for all global actions
+  actions: {
+    status: {
+      cmd: "status",
+      text: "Check your status",
+      silent: true
+    },
+    help: {
+      cmd: "help",
+      text: "Get some game help",
+      silent: true
+    },
+    attack: {
+      cmd: "attack",
+      text: "Attack that bitch!"
+    },
+    item: {
+      cmd: "item",
+      text: "Use and item by index"
+    },
+    equip: {
+      cmd: "equip",
+      text: "Equip an item in your inventory"
+    },
+    sit: {
+      cmd: "sit",
+      text: "Why don't you take a break"
+    },
+    spell: {
+      cmd: "spell",
+      text: "Cast a spell by index"
+    },
+    poop: {
+      cmd: "poop",
+      text: "Take a big dump"
+    }
+  },
+
   /**
    * Status
    *
@@ -37,6 +75,19 @@ var GameActions = {
     }
 
     Game.output.data.push();
+
+    done();
+  },
+
+  /**
+   * Provide help info for the player
+   *
+   * @param Game
+   * @param done
+   */
+  help: function( Game, done ){
+
+    Game.output.data.push('here is some helpful info');
 
     done();
   },
@@ -86,28 +137,34 @@ var GameActions = {
     Game.components.Adventure.nextEncounter( Game );
 
     done();
+  },
+
+  item: function( Game, done ){
+    Game.output.data.push("use that item bro");
+
+    done();
+  },
+
+  equip: function( Game, done ){
+    Game.output.data.push("equip that item bro");
+
+    done();
+  },
+
+  sit: function( Game, done ){
+    Game.output.data.push("sit down fool");
+
+    done();
+  },
+
+  spell: function( Game, done ){
+    Game.output.data.push("we could totally do something cool here");
+
+    done();
   }
 }
 
 // adding new action
-GameActions.item = function( Game, done ){
-  Game.output.data.push("use that item bro");
-
-  done();
-}
-
-
-GameActions.sit = function( Game, done ){
-  Game.output.data.push("sit down fool");
-
-  done();
-}
-
-GameActions.spell = function( Game, done ){
-  Game.output.data.push("we could totally do something cool here");
-
-  done();
-}
 
 GameActions.poop = function( Game, done ){
   Game.output.data.push("huuunnnn  -- emit defensive - ah - fluids.");

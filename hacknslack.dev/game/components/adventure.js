@@ -62,7 +62,7 @@ var Adventure = {
    */
   generate: function( num_of_encounters, difficulty ){
     var math = require('../math');
-    var stubs = require('../static/encounters/monsters');
+    var stubs = require('../static/encounters/arcane');
     var Encounter = require('../encounter/controller');
     var adventure = this.create();
 
