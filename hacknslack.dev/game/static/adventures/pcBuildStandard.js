@@ -49,6 +49,7 @@ module.exports = {
 
         var new_character = {
           class: 'merchant',
+          level: 1,
           attributes: {
             body: 6,
             mind: 8,
