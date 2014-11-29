@@ -2,6 +2,7 @@
  * An adventure is a grouped list of encounters.
  *
  * adventure = {
+ *
  *   // (array of strings) tags for this adventure. can be used to get specific encounter types
  *   tags: [],
  *
@@ -60,41 +61,73 @@ var Adventure = {
    * @param difficulty
    * @returns {object} adventure
    */
-  generate: function( num_of_encounters, difficulty ){
-    var math = require('../math');
-    var stubs = require('../static/encounters/arcane');
-    var Encounter = require('../encounter/controller');
+  generate: function( Game ){
+    var tag1 = 'bandit';
+    var tag2 = 'military';
+    var num_of_encounters = 5;
+
+
+    var fs = require("fs");
+    var _ = require("lodash");
+    var all_encounters = [];
+    var filtered_encounters = [];
     var adventure = this.create();
+    var used = [];
 
-    adventure.encounters = [];
+    // load encounter stubs
+    fs.readdirSync( 'game/static/encounters' ).forEach(function(file) {
+      var stubs = require( '../static/encounters/' + file );
+      all_encounters = all_encounters.concat(stubs);
+    });
 
-    for ( var i = 0; i < num_of_encounters; i++){
+    filtered_encounters = _.filter( all_encounters, function( enc ){
+      return  ( enc.tags.indexOf( tag1 ) != -1 || enc.tags.indexOf( tag2 ) != -1 );
+    });
+
+    //console.log( filtered_encounters );
+    //console.log('--- filtered encounters --- ^^');
+    while ( used.length < num_of_encounters ){
       // get a random encounter stub
-      var rand = math.random(0, stubs.length);
-      var stub = stubs[ rand ];
+      var rand = Game.utils.Math.random(0, filtered_encounters.length);
 
-      // make into full encounter
-      var encounter = Encounter.create( stub );
+      // make sure we haven't used this encounter in the adventure so far
+      if ( used.indexOf( rand ) === -1 ) {
+        // keep track of encounters we've selected
+        used.push(rand);
 
-      // add effects ?
 
-      // add to adventure
-      adventure.encounters.push(encounter);
+        var stub = filtered_encounters[rand];
+
+        // make into full encounter
+        var encounter = Game.components.Encounter.create(stub);
+
+        console.log('--------- CREATED NEW ENCOUNTER FROM STUB ------------');
+        console.log(encounter);
+        // add effects ?
+
+        // add to adventure
+        adventure.encounters.push(encounter);
+      }
     }
+    console.log(used);
 
     return adventure;
   },
 
   nextEncounter: function( Game ){
-    var next = Game.player.adventures.current_encounter + 1;
+    var next = Game.character.current_encounter + 1;
 
     if ( Game.adventure.encounters[ next ]){
       // increment to next encounter
       Game.encounter = Game.adventure.encounters[ next ];
-      Game.player.adventures.current_encounter = next;
+      Game.character.current_encounter = next;
     }
     else {
       // generate a new adventure
+      console.log(' -- should generate a new adventure-- -');
+      Game.adventure = this.generate( Game );
+      Game.character.current_encounter = 0;
+      //console.log(a);
     }
   }
 }

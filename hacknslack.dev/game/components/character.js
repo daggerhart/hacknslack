@@ -29,7 +29,13 @@
  *   items:[
  *     {item},
  *     {item}
- *   ]
+ *   ],
+ *
+ *   // (adventure object) - the character's current adventure
+ *   adventure: {},
+ *
+ *   // (Number) - encounter array index
+ *   // current_encounter: 0,
  * }
  */
 var Character = {
@@ -41,21 +47,23 @@ var Character = {
    */
   blueprint: function(){
     return {
-      class: String,
-      level: 1,
-      actions: ['status', 'equip'],
+      class: '',
+      level: 0,
+      actions: ['status'],
       equipment: {
         weapon: {},
         armor: {},
         gear: {}
       },
       attributes: {
-        body: Number,
-        mind: Number,
-        spirit: Number,
-        hp: Number
+        body: 0,
+        mind: 0,
+        spirit: 0,
+        hp: 1
       },
-      items: []
+      items: [],
+      adventure: {},
+      current_encounter: 0
     };
   },
 
@@ -74,6 +82,7 @@ var Character = {
 
       character = merge( character, stub );
     }
+
     return character;
   }
 

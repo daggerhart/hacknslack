@@ -21,8 +21,6 @@
  *
  *   // the player's adventure data
  *   adventures: {
- *     // current encounter index for the current adventure
- *     current_encounter: Number,
  *
  *     // (adventure object) - current adventure
  *     current: {},
@@ -49,13 +47,20 @@ var Player = {
       characters: {
         current: {},
         others: []
-      },
-      adventures: {
-        current_encounter: Number,
-        current: {},
-        previous: {}
       }
     }
+  },
+
+  create: function( stub ){
+    var player = this.blueprint();
+
+    if (typeof stub === 'object'){
+      var merge = require('deepmerge');
+
+      player = merge( player, stub );
+    }
+
+    return player;
   },
 
   /**
@@ -66,6 +71,8 @@ var Player = {
    * @param callback
    */
   login: function( req, callback ) {
+    var _this = this;
+
     // default player from request
     var requested_player = {
       user_name: req.query.user_name,
@@ -80,16 +87,22 @@ var Player = {
       if (found) {
 
         // reload static adventures for their methods
-        if (found.adventures.current.is_static) {
-          found.adventures.current = require('../static/adventures/' + found.adventures.current.name);
+        if (found.characters.current.adventure.is_static) {
+          found.characters.current.adventure = require('../static/adventures/' + found.characters.current.adventure.name);
+          console.log('loaded static adventure: ' + found.characters.current.adventure.name );
         }
 
         callback( found );
       }
       else {
-        var newPlayer = new playerModel(requested_player);
-        newPlayer.adventures.current = require('../static/adventures/pcBuildProcess');
-        newPlayer.adventures.current_encounter = 0;
+        var new_player = _this.create( requested_player );
+        var newPlayer = new playerModel( new_player );
+        var Character = require('./character');
+
+        // load character build process and set
+        newPlayer.characters.current = Character.create();
+        newPlayer.characters.current.adventure = require('../static/adventures/pcBuildProcess');
+        newPlayer.characters.current.current_encounter = 0;
 
         newPlayer.save(function (err, result) {
           if (err) throw err;

@@ -68,12 +68,15 @@ module.exports = {
       }
 
       // current adventure
-      if ( player.adventures.current ){
-        Game.adventure = player.adventures.current;
+      if ( player.characters.current.adventure ){
+        Game.adventure = player.characters.current.adventure;
 
         // current encounter
-        if ( player.adventures.current.encounters[ player.adventures.current_encounter ] ){
-          Game.encounter = player.adventures.current.encounters[ player.adventures.current_encounter ];
+        if ( player.characters.current.adventure.encounters[ player.characters.current.current_encounter ] ){
+          Game.encounter = player.characters.current.adventure.encounters[ player.characters.current.current_encounter ];
+        }
+        else if ( player.characters.current.adventure.encounters[0] ) {
+          Game.encounter = player.characters.current.adventure.encounters[0];
         }
       }
 
@@ -114,8 +117,9 @@ module.exports = {
       Game.components.Action.getActions( Game, Game.character, 'character');
     }
 
-    if ( Game.character && Game.character.equipment ){
-      Object.keys( Game.character.equipment).forEach( function( key ){
+    if ( Game.character && Game.character.equipment.length ){
+      console.log(Game.character);
+      Object.keys( Game.character.equipment ).forEach( function( key ){
         if ( Game.character.equipment[ key ].actions ) {
           Game.components.Action.getActions(Game, Game.character.equipment[key], 'equipment');
         }
@@ -133,6 +137,9 @@ module.exports = {
     // provide help action
     Game.allowed_actions.help = Game.GameActions.actions.help;
     Game.allowed_actions.help.context = 'global';
+
+    //console.log( Game );
+    //console.log( Game.allowed_actions );
 
     if ( next ) {
       next();
@@ -241,9 +248,12 @@ module.exports = {
     //Game.GameEvents.doEvent('saveGame', Game );
 
     var player = Game.player;
-    player.adventures.current = Game.adventure;
     player.characters.current = Game.character;
+    player.characters.current.adventure = Game.adventure;
 
+    console.log('--------- !! these should match !! ------------');
+    console.log(Game.character);
+    console.log(player.characters.current);
     // manually mark the character as modified to enforce saving
     // https://github.com/LearnBoost/mongoose/issues/1598
     player.markModified('characters.current');
@@ -275,7 +285,7 @@ module.exports = {
     Game.output.data.push( Game.encounter.desc );
 
     Object.keys( Game.allowed_actions ).forEach(function( key ){
-      if ( ! Game.allowed_actions[ key].silent ) {
+      if ( ! Game.allowed_actions[ key ].silent ) {
         Game.output.data.push( '- ' + key + ': ' + Game.allowed_actions[ key ].text );
       }
     });

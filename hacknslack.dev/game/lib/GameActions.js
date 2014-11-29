@@ -112,11 +112,13 @@ var GameActions = {
       // you win
       Game.output.data.push("you win ");
 
-      for ( var i = 0; i < Game.encounter.success.length; i++ ){
-        var effect = Game.encounter.success[ i ];
-        // do effect
-        if ( effect.type == 'heal' ){
+      if ( Game.encounter.success ) {
+        for ( var i = 0; i < Game.encounter.success.length; i++ ){
+          var effect = Game.encounter.success[ i ];
+          // do effect
+          if ( effect.type == 'heal' ){
 
+          }
         }
       }
     }
@@ -124,11 +126,13 @@ var GameActions = {
       // loser
       Game.output.data.push("you lose ");
 
-      for ( var i = 0; i < Game.encounter.fail.length; i++ ){
-        var effect = Game.encounter.fail[ i ];
-        // do effect
-        if ( effect.type == 'dmg' ){
-          Game.character.attributes.hp -= effect.amount;
+      if ( Game.encounter.fail ) {
+        for (var i = 0; i < Game.encounter.fail.length; i++) {
+          var effect = Game.encounter.fail[i];
+          // do effect
+          if (effect.type == 'dmg') {
+            Game.character.attributes.hp -= effect.amount;
+          }
         }
       }
     }
