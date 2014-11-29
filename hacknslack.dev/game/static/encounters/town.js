@@ -11,12 +11,85 @@ module.exports = [
     }
   }
 */
+/*
+  Body!
+*/
   {
     title: '',
     desc: '',
     tags: ['town'],
     challenge: {
-      attribute: ''
+      attribute: 'body'
     }
-  }
+  },
+  {
+    title: '',
+    desc: '',
+    tags: ['town'],
+    challenge: {
+      attribute: 'body'
+    }
+  },
+  {
+    title: '',
+    desc: '',
+    tags: ['town'],
+    challenge: {
+      attribute: 'body'
+    }
+  },
+/*
+  Mind!
+*/
+  {
+    title: '',
+    desc: '',
+    tags: ['town'],
+    challenge: {
+      attribute: 'mind'
+    }
+  },
+  {
+    title: '',
+    desc: '',
+    tags: ['town'],
+    challenge: {
+      attribute: 'mind'
+    }
+  },
+  {
+    title: '',
+    desc: '',
+    tags: ['town'],
+    challenge: {
+      attribute: 'mind'
+    }
+  },  
+/*
+  Spirit!
+*/
+  {
+    title: '',
+    desc: '',
+    tags: ['town'],
+    challenge: {
+      attribute: 'spirit'
+    }
+  },
+  {
+    title: '',
+    desc: '',
+    tags: ['town'],
+    challenge: {
+      attribute: 'spirit'
+    }
+  },
+  {
+    title: '',
+    desc: '',
+    tags: ['town'],
+    challenge: {
+      attribute: 'spirit'
+    }
+  },    
 ]
