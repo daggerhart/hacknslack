@@ -102,7 +102,7 @@ var Adventure = {
         var encounter = Game.components.Encounter.create(stub);
 
         console.log('--------- CREATED NEW ENCOUNTER FROM STUB ------------');
-        console.log(encounter);
+        //console.log(encounter);
         // add effects ?
 
         // add to adventure

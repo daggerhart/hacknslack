@@ -47,6 +47,7 @@ var Character = {
    */
   blueprint: function(){
     return {
+      name: '',
       class: '',
       level: 0,
       actions: ['status'],

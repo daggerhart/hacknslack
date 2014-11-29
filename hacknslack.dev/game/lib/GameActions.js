@@ -51,7 +51,7 @@ var GameActions = {
     var c = Game.character;
     //var e = Game.encounter;
 
-    Game.output.data.push( 'You: ' + p.user_name );
+    Game.output.data.push( c.name );
     Game.output.data.push( 'Class: ' + c.class );
     Game.output.data.push( 'HP: ' + c.attributes.hp );
     Game.output.data.push( 'Body: ' + c.attributes.body );

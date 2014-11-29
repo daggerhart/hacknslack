@@ -32,10 +32,10 @@ var System = require('./game/system');
  */
 app.use('/json',
   System.init,
-  //System.getPlayer,
+  System.sanitizeInput,       // make sure input contains no illegal content
+  System.parseGameInput,      // convert text input into an action
   System.loadGame,
   System.findAllowedActions,  // find current actions
-  System.parseGameInput,      // convert text input into an action
   System.validateGame,        // ensure the action given is valid in this context
   System.executeGame,         // do the action
   System.saveGame,            // save the results
@@ -45,7 +45,7 @@ app.use('/json',
   // final, return output
   function( req, res ){
     console.log("-----------------------------");
-    console.log('Game should be loaded, executed, and saved.');
+    console.log('Game complete.');
     console.log("-----------------------------");
     //console.log( req.Game );
     //console.log("-----------------------------");

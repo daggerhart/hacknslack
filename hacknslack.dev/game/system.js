@@ -46,104 +46,15 @@ module.exports = {
   },
 
   /**
-   * Load the pc, adventure, encounter and more... if needed
+   * TODO: add input sanitization to ensure we're clean before continuing
    *
    * @param req
    * @param res
    * @param next
    */
-  loadGame: function( req, res, next ) {
-    var Game = req.Game;
+  sanitizeInput: function( req, res, next ){
 
-    console.log('-------- load game ---------');
-
-    // login or create a player
-    Game.components.Player.login( req, function( player ){
-
-      Game.player = player;
-
-      // current character
-      if ( player.characters.current ){
-        Game.character = player.characters.current;
-      }
-
-      // current adventure
-      if ( player.characters.current.adventure ){
-        Game.adventure = player.characters.current.adventure;
-
-        // current encounter
-        if ( player.characters.current.adventure.encounters[ player.characters.current.current_encounter ] ){
-          Game.encounter = player.characters.current.adventure.encounters[ player.characters.current.current_encounter ];
-        }
-        else if ( player.characters.current.adventure.encounters[0] ) {
-          Game.encounter = player.characters.current.adventure.encounters[0];
-        }
-      }
-
-      //Game.GameEvents.doEvent('loadGame', Game );
-
-      if ( next ){
-        next();
-      }
-    });
-  },
-
-  /**
-   *  Get actions from context:
-   *      Game.encounter,
-   *      Game.adventure,
-   *      Game.character,
-   *      Game.character.equipment,
-   *      Game.character.items
-   *      GlobalActions
-   *
-   * @param req
-   * @param res
-   * @param next
-   */
-  findAllowedActions: function ( req, res, next ) {
-    var Game = req.Game;
-    Game.allowed_actions = {};
-
-    if ( Game.adventure && Game.adventure.actions ) {
-      Game.components.Action.getActions( Game, Game.adventure, 'adventure');
-    }
-
-    if ( Game.encounter && Game.encounter.actions) {
-      Game.components.Action.getActions( Game, Game.encounter, 'encounter');
-    }
-
-    if ( Game.character && Game.character.actions ){
-      Game.components.Action.getActions( Game, Game.character, 'character');
-    }
-
-    if ( Game.character && Game.character.equipment.length ){
-      console.log(Game.character);
-      Object.keys( Game.character.equipment ).forEach( function( key ){
-        if ( Game.character.equipment[ key ].actions ) {
-          Game.components.Action.getActions(Game, Game.character.equipment[key], 'equipment');
-        }
-      });
-    }
-
-    if ( Game.character && Game.character.items ){
-      for( var i = 0; i < Game.character.items.length; i++ ) {
-        if (Game.character.items[i].actions) {
-          Game.components.Action.getActions(Game, Game.character.items[i], 'item');
-        }
-      }
-    }
-
-    // provide help action
-    Game.allowed_actions.help = Game.GameActions.actions.help;
-    Game.allowed_actions.help.context = 'global';
-
-    //console.log( Game );
-    //console.log( Game.allowed_actions );
-
-    if ( next ) {
-      next();
-    }
+    next();
   },
 
   /**
@@ -181,6 +92,116 @@ module.exports = {
     }
 
     Game.input = input;
+
+    if ( next ) {
+      next();
+    }
+  },
+
+  /**
+   * Load the pc, adventure, encounter and more... if needed
+   *
+   * @param req
+   * @param res
+   * @param next
+   */
+  loadGame: function( req, res, next ) {
+    var Game = req.Game;
+
+    // login or create a player
+    Game.components.Player.login( req, function( player ){
+
+      Game.player = player;
+
+      // current character
+      if ( player.characters.current ){
+        Game.character = player.characters.current;
+      }
+
+      // current adventure
+      if ( player.characters.current.adventure ){
+        Game.adventure = player.characters.current.adventure;
+
+        // current encounter
+        if ( player.characters.current.adventure.encounters[ player.characters.current.current_encounter ] ){
+          Game.encounter = player.characters.current.adventure.encounters[ player.characters.current.current_encounter ];
+        }
+        else if ( player.characters.current.adventure.encounters[0] ) {
+          Game.encounter = player.characters.current.adventure.encounters[0];
+        }
+      }
+
+      //Game.GameEvents.doEvent('loadGame', Game );
+      console.log("-----------------------------");
+      console.log('Game loaded.');
+      console.log("-----------------------------");
+
+      if ( next ){
+        next();
+      }
+    });
+  },
+
+  /**
+   *  Get actions from context:
+   *      Game.encounter,
+   *      Game.adventure,
+   *      Game.character,
+   *      Game.character.equipment,
+   *      Game.character.items
+   *      GlobalActions
+   *
+   * @param req
+   * @param res
+   * @param next
+   */
+  findAllowedActions: function ( req, res, next ) {
+    var Game = req.Game;
+    Game.allowed_actions = {};
+
+    if ( Game.adventure && Game.adventure.actions ) {
+      Game.components.Action.getActions( Game, Game.adventure, 'adventure');
+    }
+
+    console.log(Game.encounter);
+
+    if ( Game.encounter && Game.encounter.actions) {
+      Game.components.Action.getActions( Game, Game.encounter, 'encounter');
+    }
+
+    if ( Game.character && Game.character.actions ){
+      Game.components.Action.getActions( Game, Game.character, 'character');
+    }
+
+    if ( Game.character && Game.character.equipment.length ){
+      console.log(Game.character);
+      Object.keys( Game.character.equipment ).forEach( function( key ){
+        if ( Game.character.equipment[ key ].actions ) {
+          Game.components.Action.getActions(Game, Game.character.equipment[key], 'equipment');
+        }
+      });
+    }
+
+    if ( Game.character && Game.character.items ){
+      for( var i = 0; i < Game.character.items.length; i++ ) {
+        if (Game.character.items[i].actions) {
+          Game.components.Action.getActions(Game, Game.character.items[i], 'item');
+        }
+      }
+    }
+
+    console.log("-----------------------------");
+    console.log('Game allowed actions found.');
+    console.log("-----------------------------");
+
+    console.log(Game.allowed_actions);
+
+    // provide help action
+    Game.allowed_actions.help = Game.GameActions.actions.help;
+    Game.allowed_actions.help.context = 'global';
+
+    //console.log( Game );
+    //console.log( Game.allowed_actions );
 
     if ( next ) {
       next();
@@ -244,23 +265,24 @@ module.exports = {
     var Game = req.Game;
     // save pc data
 
-    console.log('----------- save game --------------');
     //Game.GameEvents.doEvent('saveGame', Game );
 
     var player = Game.player;
     player.characters.current = Game.character;
     player.characters.current.adventure = Game.adventure;
 
-    console.log('--------- !! these should match !! ------------');
-    console.log(Game.character);
-    console.log(player.characters.current);
     // manually mark the character as modified to enforce saving
     // https://github.com/LearnBoost/mongoose/issues/1598
     player.markModified('characters.current');
     player.save(function(err, results, affected){
       if (err) throw err;
 
-      console.log('player save !! -- affected: ' + affected);
+      console.log("-----------------------------");
+      console.log('Game saved.: ' + affected );
+      console.log("-----------------------------");
+
+      console.log(player.characters.current);
+
       next();
     });
 
@@ -293,7 +315,7 @@ module.exports = {
 
     // provide current character info on each action
     if ( Game.character.attributes ) {
-      Game.output.data.unshift('<div style="border-bottom: 1px dashed #bbb;">Class: ' + Game.character.class + ' -- HP: ' + Game.character.attributes.hp + '</div>' );
+      Game.output.data.unshift('<div style="border-bottom: 1px dashed #bbb;">Name: ' + Game.character.name + ' -- Class: ' + Game.character.class + ' -- HP: ' + Game.character.attributes.hp + '</div>' );
     }
 
     // should be an array of stuff to output
