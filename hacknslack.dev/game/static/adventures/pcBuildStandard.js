@@ -115,6 +115,7 @@ module.exports = {
         Game.adventure = require('./adventureOne');
 
         Game.character.current_encounter = 0;
+        Game.encounter = Game.adventure.encounters[0];
         done();
       },
 
