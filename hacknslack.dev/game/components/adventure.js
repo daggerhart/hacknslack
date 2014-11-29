@@ -127,6 +127,7 @@ var Adventure = {
       console.log(' -- should generate a new adventure-- -');
       Game.adventure = this.generate( Game );
       Game.character.current_encounter = 0;
+      Game.encounter = Game.adventure.encounters[0];
       //console.log(a);
     }
   }
