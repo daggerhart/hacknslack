@@ -53,6 +53,7 @@ var Encounter = {
       title: '',
       desc: '',
       actions: [],
+      texts: [], // descriptions for actions
       tags: [],
       challenge: {
         rating: 0,

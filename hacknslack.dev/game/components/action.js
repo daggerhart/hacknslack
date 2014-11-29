@@ -65,9 +65,25 @@ var Action = {
         var action = obj.actions[i];
 
         // strings are references to global actions
-        if (typeof action === 'string' && Game.GameActions.actions[ action ]) {
-          Game.allowed_actions[ action ] = Game.GameActions.actions[ action ];
-          Game.allowed_actions[ action ].context = 'global';
+        if (typeof action === 'string') {
+      	  if( Game.GameActions.actions[ action ]) {
+            Game.allowed_actions[ action ] = Game.GameActions.actions[ action ];
+            Game.allowed_actions[ action ].context = 'global';
+            // mike: okay: if the action is just a string, and we can't find it
+            // defined under actions, we just goddamned assume it's 'attack'
+          } else {
+            Game.allowed_actions[ action ] = Game.GameActions.actions[ 'attack' ];
+            Game.allowed_actions[ action ].context = 'global';
+            if (obj.texts[i]) {
+              // an issue here to be solved later is that this
+              // permanently changes the text of attack action.
+              // so the next encounter, if attack is not customly described,
+              // will have the previous encounter's text. which is dumb.
+              // it's too late for me to solve this here, so... jon
+              // or awake me tomorrow!
+              Game.allowed_actions[ action ].text = obj.texts[i];
+            }
+          }
         }
         else {
           Game.allowed_actions[ action.cmd ] = action;

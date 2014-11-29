@@ -18,8 +18,8 @@ module.exports = {
       },
 
       // this encounter’s contextual actions
-      actions: [ 'attack' ],
-
+      actions: [ 'swat' ],
+      texts: [ 'Swat him with a rolled up newspaper!' ],
       success: [],
 
       fail: [
@@ -36,8 +36,8 @@ module.exports = {
       },
 
       // this encounter’s contextual actions
-      actions: [ 'attack' ],
-
+      actions: [ 'answer' ],
+      texts: [ 'The answer was inside you all along!' ],
       success: [
         { amount: 10, type: 'heal' }
       ],
@@ -54,14 +54,33 @@ module.exports = {
       },
 
       // this encounter’s contextual actions
-      actions: [ 'attack' ],
-
+      actions: [ 'exorcise' ],
+      texts: [ 'Ba-dabap-bopbop' ],
       success: [],
 
       fail: [
         { amount: 5, type: 'dmg' }
       ]
     },
+    {
+      title: "A standard encounter",
+      desc: "BORING",
+
+      challenge: {
+        rating: 10,
+        attribute: 'body'
+      },
+
+      // this encounter’s contextual actions
+      actions: [ 'attack' ],
+      success: [],
+
+      fail: [
+        { amount: 5, type: 'dmg' }
+      ]
+    },    
+    
+    
     {
       title: "Split path",
       desc: "A path to your left, or a locked door to the right.",

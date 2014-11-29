@@ -86,8 +86,7 @@ var Adventure = {
   },
 
   nextEncounter: function( Game ){
-    var i = Game.player.adventures.current_encounter;
-    var next = i + 1;
+    var next = Game.player.adventures.current_encounter + 1;
 
     if ( Game.adventure.encounters[ next ]){
       // increment to next encounter
