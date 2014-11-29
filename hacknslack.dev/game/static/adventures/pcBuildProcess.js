@@ -4,8 +4,6 @@ module.exports = {
   is_static: true,
   name: 'pcBuildProcess',
 
-  // current_encounter = 0, // even necessary for a template?  always zero?
-
   encounters: [
     {
       title: "How do you want to build your character?",

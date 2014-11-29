@@ -5,8 +5,6 @@ module.exports = {
   is_static: true,
   name: 'adventureOne',
 
-  // current_encounter = 0, // even necessary for a template?  always zero?
-
   encounters: [
     {
       title: "Deranged Wolf",
@@ -88,6 +86,7 @@ module.exports = {
 
       path: function( Game, done ){
         Game.output.data.push('You have respect for the law, congrats!  Try feeding your family with that.');
+        Game.components.Adventure.nextEncounter( Game );
         done();
       }
     },
@@ -96,10 +95,13 @@ module.exports = {
       title: 'Death Knight',
       desc: 'A knight that was dead, and now is dead.',
       tags: ['boss'],
-
+      challenge: {
+        attribute: 'body'
+      },
       actions: [
         {
-          cmd: "turn",
+          cmd: "attack",
+          alias: "turn",
           text: "Shout at that bitch!"
         },
         {
@@ -108,26 +110,9 @@ module.exports = {
         }
       ],
 
-      turn: function( Game, done ){
-        Game.encounter.challenge = {
-          rating: 7,
-          attribute: 'spirit'
-        }
-        Game.output.data.push("You try to turn it.");
-        Game.GameActions.attack( Game, function(){
-          done();
-        });
-      },
-
       push: function( Game, done){
-        Game.encounter.challenge = {
-          rating: 6,
-          attribute: 'body'
-        }
-        Game.output.data.push("you tried to push it");
-        Game.GameActions.attack( Game, function(){
-          done();
-        });
+        Game.output.data.push("you tried to push it but nothing happened");
+        done();
       }
     }
   ]

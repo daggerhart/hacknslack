@@ -39,7 +39,12 @@ module.exports = [
     tags: ["military"],
     challenge: {
       attribute: "mind"
-    }
+    },
+    actions: [{
+      cmd: "attack",
+      alias: "solvemurder",
+      text: "Give it the college try."
+    }]
   },
   {
     title: "Frameup",

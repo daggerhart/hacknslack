@@ -4,7 +4,6 @@ module.exports = {
   is_static: true,
   name: 'pcBuildStandard',
 
-  // current_encounter = 0, // even necessary for a template?  always zero?
   encounters: [
     {
       title: "Select your class",
@@ -39,6 +38,9 @@ module.exports = {
 
         Game.adventure = require('./adventureOne');
         Game.encounter = Game.adventure.encounters[0];
+
+        console.log('-----------should have new character-----------');
+        //console.log(Game.character);
 
         done();
       },

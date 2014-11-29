@@ -15,6 +15,9 @@
  *   // (bool) - actions can be hidden from the user.
  *   // Useful for game utility actions such as "help"
  *   silent: false,
+ *
+ *   // (string) - provide a new command for a global action.  cmd: must be set to a global command
+ *   alias: ''
  * }
  *
  */
@@ -29,7 +32,8 @@ var Action = {
     return {
       cmd: '',
       text: '',
-      content: '',
+      context: '',
+      //alias: '',
       silent: false
     }
   },
@@ -69,10 +73,18 @@ var Action = {
           Game.allowed_actions[ action ] = Game.GameActions.actions[ action ];
           Game.allowed_actions[ action ].context = 'global';
         }
+        // actions may alias global actions
+        else if ( action.alias && Game.GameActions.actions[ action.cmd ] ) {
+          // the alias is what the user can type, so
+          Game.allowed_actions[ action.alias ] = Game.GameActions.actions[ action.cmd ];
+          Game.allowed_actions[ action.alias ].context = 'global';
+          Game.allowed_actions[ action.alias ].text = action.text;
+        }
         else {
           Game.allowed_actions[ action.cmd ] = action;
           Game.allowed_actions[ action.cmd ].context = context;
         }
+        console.log('got actions for context: ' + context);
       }
     }
   },
@@ -98,13 +110,15 @@ var Action = {
     // get the contextual object of this action
     if ( context_map[ action.context ] ) {
       var context = context_map[ action.context ];
+      var method = '';
 
-      // see if there is a method in this context
       if ( typeof context[ action.cmd ] === 'function' ){
-        context[ action.cmd ]( Game, function(){
-          done();
-        });
+        method = action.cmd;
       }
+
+      context[ method ]( Game, function(){
+        done();
+      });
     }
   }
 }

@@ -9,6 +9,7 @@
     "mongoskin": "~1.4.4",
     "mongoose": "3.8.19",
     "express": "4.10.x",
-    "deepmerge": ">=0.2.7"
+    "deepmerge": ">=0.2.7",
+    "lodash": ">=2.4.1"
   }
 }
