@@ -64,6 +64,8 @@ var Adventure = {
   generate: function( Game ){
     var tag1 = 'bandit';
     var tag2 = 'military';
+
+    
     var num_of_encounters = 5;
 
 
@@ -72,7 +74,9 @@ var Adventure = {
     var all_encounters = [];
     var filtered_encounters = [];
     var adventure = this.create();
+    adventure.name = "Deserters!"; // dlete at some point
     var used = [];
+
 
     // load encounter stubs
     fs.readdirSync( 'game/static/encounters' ).forEach(function(file) {
@@ -125,10 +129,11 @@ var Adventure = {
     else {
       // generate a new adventure
       console.log(' -- should generate a new adventure-- -');
+      
       Game.adventure = this.generate( Game );
       Game.character.current_encounter = 0;
       Game.encounter = Game.adventure.encounters[0];
-      //console.log(a);
+      console.log('We are on the adventure: ' + Game.adventure.name);
     }
   }
 }

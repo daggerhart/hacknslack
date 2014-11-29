@@ -59,6 +59,8 @@ var GameActions = {
     Game.output.data.push( 'Spirit: ' + c.attributes.spirit );
 
     Game.output.data.push('Inventory');
+    Game.output.data.push( 'Current Adventure: ' + Game.adventure.name );
+    Game.output.data.push( 'Current Encounter: ' + Game.encounter.title );
 
     // equipment
     Object.keys(c.equipment).forEach(function( key ){
