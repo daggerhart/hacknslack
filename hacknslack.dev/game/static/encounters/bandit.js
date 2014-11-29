@@ -80,7 +80,7 @@ module.exports = [
   },
   {
     title: "The Highwaymen",
-    desc: "Four beardy bandits with guitars waylay you! They challenge you to a drinking contest.",
+    desc: "Four beardy bandits with guitars waylay you! They challenge you to a drinking contest. It's awesosome!",
     tags: ["bandit"],
     challenge: {
       attribute: "spirit"
