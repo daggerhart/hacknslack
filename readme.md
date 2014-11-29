@@ -20,4 +20,5 @@ In vagrant:
 cd /var/www/hacknslack.dev
 node app.js
 
-
+Bitbucket:
+bitbucket.org (/daggerhart/hacknslack)
