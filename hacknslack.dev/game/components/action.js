@@ -63,39 +63,51 @@ var Action = {
    * @param obj
    */
   getActions: function( Game, obj, context ) {
+    // look for encounter's attack_alias, and turn it into an action object
+    // TODO move to preprocessing encounter
+    if ( context == 'encounter' && obj.attack_alias ){
+      var alias = obj.attack_alias.shift();
+      var text  = obj.attack_alias.shift();
+
+      var attack_alias = {
+        cmd: 'attack',
+        alias: alias,
+        text: text
+      };
+
+      if ( !obj.actions ){
+        obj.actions = [ attack_alias ];
+      }
+      else {
+        obj.actions.unshift( attack_alias );
+      }
+      console.log('--------- attack alias found -------------');
+      console.log( obj.actions );
+
+      // remove the alias
+      obj.attack_alias = null;
+    }
+
     if ( obj.actions ) {
+
       for (var i = 0; i < obj.actions.length; i++) {
-        // can be a string of action object
+        // can be a string, array, or action object
         var action = obj.actions[i];
 
         // strings are references to global actions
-        if (typeof action === 'string') {
-      	  if( Game.GameActions.actions[ action ]) {
-            Game.allowed_actions[ action ] = Game.GameActions.actions[ action ];
-            Game.allowed_actions[ action ].context = 'global';
-            // mike: okay: if the action is just a string, and we can't find it
-            // defined under actions, we just goddamned assume it's 'attack'
-          } else {
-            Game.allowed_actions[ action ] = Game.GameActions.actions[ 'attack' ];
-            Game.allowed_actions[ action ].context = 'global';
-            if (obj.texts[i]) {
-              // an issue here to be solved later is that this
-              // permanently changes the text of attack action.
-              // so the next encounter, if attack is not customly described,
-              // will have the previous encounter's text. which is dumb.
-              // it's too late for me to solve this here, so... jon
-              // or awake me tomorrow!
-              Game.allowed_actions[ action ].text = obj.texts[i];
-            }
-          }
+        if (typeof action === 'string' &&  Game.GameActions.actions[ action ]) {
+          Game.allowed_actions[ action ] = Game.GameActions.actions[ action ];
+          Game.allowed_actions[ action ].context = 'global';
         }
         // actions may alias global actions
         else if ( action.alias && Game.GameActions.actions[ action.cmd ] ) {
           // the alias is what the user can type, so
           Game.allowed_actions[ action.alias ] = Game.GameActions.actions[ action.cmd ];
+          Game.allowed_actions[ action.alias ].alias = action.alias; // useful for debugging
           Game.allowed_actions[ action.alias ].context = 'global';
           Game.allowed_actions[ action.alias ].text = action.text;
         }
+        // this action is unique to the context
         else {
           Game.allowed_actions[ action.cmd ] = action;
           Game.allowed_actions[ action.cmd ].context = context;

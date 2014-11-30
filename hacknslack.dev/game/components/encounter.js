@@ -53,7 +53,6 @@ var Encounter = {
       title: '',
       desc: '',
       actions: [],
-      texts: [], // descriptions for actions
       tags: [],
       challenge: {
         rating: 0,
@@ -85,7 +84,7 @@ var Encounter = {
       encounter = merge( encounter, stub );
     }
 
-    // ensure something can always be done
+    //
     if ( encounter.actions.length === 0) {
       encounter.actions.push('attack');
     }

@@ -165,7 +165,7 @@ module.exports = {
 
     console.log(Game.encounter);
 
-    if ( Game.encounter && Game.encounter.actions) {
+    if ( Game.encounter && ( Game.encounter.actions || Game.encounter.attack_alias ) ) {
       Game.components.Action.getActions( Game, Game.encounter, 'encounter');
     }
 

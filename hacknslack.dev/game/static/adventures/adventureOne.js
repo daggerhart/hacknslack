@@ -15,11 +15,9 @@ module.exports = {
         attribute: 'body'
       },
 
-      // this encounter’s contextual actions
-      actions: [ 'swat' ],
-      texts: [ 'Swat him with a rolled up newspaper!' ],
+      // using an array to alias the global attack action
+      attack_alias: ['swat',  'Swat him with a rolled up newspaper!' ],
       success: [],
-
       fail: [
         { amount: 5, type: 'dmg' } // an effect
       ]
@@ -27,19 +25,15 @@ module.exports = {
     {
       title: "Goblin Wizard",
       desc: "A wizened goblin offers you healing if you can solve his riddle.",
-
       challenge: {
         rating: 10,
         attribute: 'mind'
       },
-
-      // this encounter’s contextual actions
-      actions: [ 'answer' ],
-      texts: [ 'The answer was inside you all along!' ],
+      // using an array to alias the global attack action
+      attack_alias:  ['answer', 'The answer was inside you all along!'],
       success: [
         { amount: 10, type: 'heal' }
       ],
-
       fail: []
     },
     {
@@ -52,8 +46,14 @@ module.exports = {
       },
 
       // this encounter’s contextual actions
-      actions: [ 'exorcise' ],
-      texts: [ 'Ba-dabap-bopbop' ],
+      actions: [
+        // using an action object to alias the global attack action
+        {
+          cmd: 'attack',
+          alias: 'exorcise',
+          text: 'Ba-dabap-bopbop'
+        }
+      ],
       success: [],
 
       fail: [
@@ -70,7 +70,10 @@ module.exports = {
       },
 
       // this encounter’s contextual actions
-      actions: [ 'attack' ],
+      actions: [
+        // provide default attack action
+        'attack'
+      ],
       success: [],
 
       fail: [
@@ -90,7 +93,9 @@ module.exports = {
 
       // this encounter’s contextual actions
       actions: [
+        // provide default attack action
         'attack',
+        // using an action object to create a new custom action for this encounter
         {
           cmd: 'path',
           text: 'take the path to the left'
@@ -118,11 +123,13 @@ module.exports = {
         attribute: 'body'
       },
       actions: [
+        // using action object to alias global attack action
         {
           cmd: "attack",
           alias: "turn",
           text: "Shout at that bitch!"
         },
+        // custom action for this encounter
         {
           cmd: "push",
           text: "Well, maybe you shouldn't stand next to a pit of lava, you dumb bastard!"
