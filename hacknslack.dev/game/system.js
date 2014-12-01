@@ -29,28 +29,29 @@
  trigger_word=googlebot:
  */
 
+var tools     = require('tools');
+
+var Player    = require('player');
+var Character = require('character');
+var Adventure = require('adventure');
+var Encounter = require('encounter');
+
+
+
 module.exports = {
 
   /**
    * Instantiate a Game and attach to request
-   *
-   * @param req
-   * @param res
-   * @param next
    */
   init: function( req, res, next ) {
-    var Game = require('./game');
-    req.Game = Game.create( req );
+    var Game = require('game');
+    req.Game = new Game( req );
 
     next();
   },
 
   /**
    * TODO: add input sanitization to ensure we're clean before continuing
-   *
-   * @param req
-   * @param res
-   * @param next
    */
   sanitizeInput: function( req, res, next ){
 
@@ -59,10 +60,6 @@ module.exports = {
 
   /**
    * Convert a submitted input into an object with expectations
-   *
-   * @param req
-   * @param res
-   * @param next
    */
   parseGameInput: function( req, res, next ) {
     var Game = req.Game;
@@ -99,47 +96,83 @@ module.exports = {
   },
 
   /**
-   * Load the pc, adventure, encounter and more... if needed
-   *
-   * @param req
-   * @param res
-   * @param next
+   * Load or create the current player
    */
-  loadGame: function( req, res, next ) {
-    var Game = req.Game;
+  loadPlayer: function( req, res, next){
 
     // login or create a player
-    Game.components.Player.login( req, function( player ){
+    Player.login( req, function( player ) {
+      req.Game.player = player;
+      console.log('- player loaded');
 
-      Game.player = player;
-
-      // current character
-      if ( player.characters.current ){
-        Game.character = player.characters.current;
-      }
-
-      // current adventure
-      if ( player.characters.current.adventure ){
-        Game.adventure = player.characters.current.adventure;
-
-        // current encounter
-        if ( player.characters.current.adventure.encounters[ player.characters.current.current_encounter ] ){
-          Game.encounter = player.characters.current.adventure.encounters[ player.characters.current.current_encounter ];
-        }
-        else if ( player.characters.current.adventure.encounters[0] ) {
-          Game.encounter = player.characters.current.adventure.encounters[0];
-        }
-      }
-
-      //Game.GameEvents.doEvent('loadGame', Game );
-      console.log("-----------------------------");
-      console.log('Game loaded.');
-      console.log("-----------------------------");
-
-      if ( next ){
-        next();
-      }
+      next();
     });
+  },
+
+  /**
+   * Load player's current character
+   */
+  loadCharacter: function( req, res, next){
+    var player = req.Game.player;
+
+    if ( player.characters.current ){
+      req.Game.character = player.characters.current;
+      console.log('- character loaded');
+    }
+    else {
+      req.Game.character = new Character();
+      console.log('- character created');
+    }
+
+    console.log('--------- CHARACTER -----------');
+    console.log('---------------------------');
+    console.log(req.Game.character);
+    next();
+  },
+
+  /**
+   * Load adventure from current character
+   */
+  loadAdventure: function( req, res, next){
+    var character = req.Game.character;
+
+    if ( character.adventure ){
+      req.Game.adventure = new Adventure( character.adventure );
+      console.log('- adventure loaded from character');
+    }
+    else {
+      // assign character to first adventure
+      var stub = tools.files.getAdventure('pcBuildProcess.js');
+      req.Game.adventure = new Adventure( stub );
+    }
+
+    console.log('--------- ADVENTURE -----------');
+    console.log('---------------------------');
+    console.log(req.Game.adventure);
+    next();
+  },
+
+  /**
+   * Load encounter from current adventure
+   */
+  loadEncounter: function( req, res, next){
+    var character = req.Game.character;
+    var adventure = req.Game.adventure;
+
+    if ( adventure.encounters[ character.current_encounter ] ){
+      req.Game.encounter = new Encounter( adventure.encounters[ character.current_encounter ] );
+      console.log('- encounter loaded from adventure');
+    }
+    else {
+      req.Game.encounter = new Encounter( adventure.encounters[0] );
+      req.Game.character.current_encounter = 0;
+      console.log('- encounter loaded from first encounter in adventure');
+    }
+
+    console.log('--------- ENCOUNTER -----------');
+    console.log('---------------------------');
+    console.log(req.Game.encounter);
+    next();
   },
 
   /**
@@ -160,24 +193,24 @@ module.exports = {
     Game.allowed_actions = {};
 
     if ( Game.adventure && Game.adventure.actions ) {
-      Game.components.Action.getActions( Game, Game.adventure, 'adventure');
+      Game.getActions( Game.adventure, 'adventure');
     }
 
     console.log(Game.encounter);
 
     if ( Game.encounter && ( Game.encounter.actions || Game.encounter.attack_alias ) ) {
-      Game.components.Action.getActions( Game, Game.encounter, 'encounter');
+      Game.getActions( Game.encounter, 'encounter');
     }
 
     if ( Game.character && Game.character.actions ){
-      Game.components.Action.getActions( Game, Game.character, 'character');
+      Game.getActions( Game.character, 'character');
     }
 
-    if ( Game.character && Game.character.equipment.length ){
-      console.log(Game.character);
+    if ( Game.character && Game.character.equipment && Game.character.equipment.length ){
+      //console.log(Game.character);
       Object.keys( Game.character.equipment ).forEach( function( key ){
         if ( Game.character.equipment[ key ].actions ) {
-          Game.components.Action.getActions(Game, Game.character.equipment[key], 'equipment');
+          Game.getActions( Game.character.equipment[key], 'equipment');
         }
       });
     }
@@ -185,20 +218,22 @@ module.exports = {
     if ( Game.character && Game.character.items ){
       for( var i = 0; i < Game.character.items.length; i++ ) {
         if (Game.character.items[i].actions) {
-          Game.components.Action.getActions(Game, Game.character.items[i], 'item');
+          Game.getActions( Game.character.items[i], 'item');
         }
       }
     }
 
+    //console.log("-----------------------------");
+    console.log('------ ALLOWED ACTIONS ------');
     console.log("-----------------------------");
-    console.log('Game allowed actions found.');
-    console.log("-----------------------------");
-
     console.log(Game.allowed_actions);
+    //console.log("-----------------------------");
+    //console.log("-----------------------------");
+    //console.log("-----------------------------");
 
     // provide help action
-    Game.allowed_actions.help = Game.GameActions.actions.help;
-    Game.allowed_actions.help.context = 'global';
+    //Game.allowed_actions.help = require('GameActions').actions.help;
+    //Game.allowed_actions.help.context = 'global';
 
     //console.log( Game );
     //console.log( Game.allowed_actions );
@@ -222,9 +257,11 @@ module.exports = {
       Game.input.valid = true;
       Game.input.context = Game.allowed_actions[ Game.input.action ];
       Game.output.debug.push("doing action - " + Game.input.action );
+      console.log('-------------- VALID ACTION -----------> ' + Game.input.action );
     }
     else {
       Game.output.debug.push("invalid action - " + Game.input.action );
+      console.log('---!!!!!------- INVALID ACTION -----------> ' + Game.input.action );
     }
 
     if (next) {
@@ -245,7 +282,7 @@ module.exports = {
     // TODO: execute action within context
 
     if ( Game.input.valid ) {
-      Game.components.Action.doAction( Game, function(){
+      Game.doAction( function(){
         next();
       });
     }
@@ -281,7 +318,7 @@ module.exports = {
       console.log('Game saved.: ' + affected );
       console.log("-----------------------------");
 
-      console.log(player.characters.current);
+      //console.log(player.characters.current);
 
       next();
     });
@@ -325,6 +362,7 @@ module.exports = {
 
     req.Game.output.payload = payload;
 
+    Game.output.debug.push('On encounter ' + Game.character.current_encounter + ' of adventure ' + Game.adventure.title );
     next();
   }
 }

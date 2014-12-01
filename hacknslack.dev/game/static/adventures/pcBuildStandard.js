@@ -1,8 +1,11 @@
+var tools = require('tools');
+var Adventure = require('adventure');
+var Encounter = require('encounter');
+
 
 module.exports = {
 
-  is_static: true,
-  name: 'pcBuildStandard',
+  title: 'PC standard build process',
 
   encounters: [
     // class selection
@@ -25,6 +28,10 @@ module.exports = {
       // action "savage"
       savage: function ( Game, done ){
 
+        console.log('doing SAVAGE');
+
+        var Character = require('character');
+
         var new_character = {
           class: 'savage',
           level: 1,
@@ -37,15 +44,16 @@ module.exports = {
         };
 
         // create a new character and save it to the game as the player's current character
-        Game.character = Game.components.Character.create( new_character );
+        Game.character = new Character( new_character );
 
         // set game to next encounter
-        Game.components.Adventure.nextEncounter( Game );
+        Game.nextEncounter();
 
         done();
       },
 
       merchant: function( Game, done ){
+        var Character = require('character');
 
         var new_character = {
           class: 'merchant',
@@ -59,10 +67,10 @@ module.exports = {
         };
 
         // create a new character and save it to the game as the player's current character
-        Game.character = Game.components.Character.create( new_character );
+        Game.character = new Character( new_character );
 
         // set game to next encounter
-        Game.components.Adventure.nextEncounter( Game );
+        Game.nextEncounter();
 
         done();
       }
@@ -86,7 +94,7 @@ module.exports = {
         Game.character.name = Game.input.words.join(' ');
 
         // next encounter
-        Game.components.Adventure.nextEncounter( Game );
+        Game.nextEncounter();
 
         console.log('new character named - ' + Game.character.name );
 
@@ -112,19 +120,13 @@ module.exports = {
 
       forest: function( Game, done ){
 
-        Game.adventure = require('./adventureOne');
-
-        Game.character.current_encounter = 0;
-        Game.encounter = Game.adventure.encounters[0];
+        Game.loadAdventure('adventureOne.js');
         done();
       },
 
       mountain: function( Game, done ){
 
-        Game.adventure = require('./adventureOne');
-
-        Game.character.current_encounter = 0;
-        Game.encounter = Game.adventure.encounters[0];
+        Game.loadAdventure('adventureOne.js');
         done();
       }
     }

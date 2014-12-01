@@ -34,7 +34,10 @@ app.use('/json',
   System.init,
   System.sanitizeInput,       // make sure input contains no illegal content
   System.parseGameInput,      // convert text input into an action
-  System.loadGame,
+  System.loadPlayer,
+  System.loadCharacter,
+  System.loadAdventure,
+  System.loadEncounter,
   System.findAllowedActions,  // find current actions
   System.validateGame,        // ensure the action given is valid in this context
   System.executeGame,         // do the action

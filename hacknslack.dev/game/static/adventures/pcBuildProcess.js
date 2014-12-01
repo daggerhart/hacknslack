@@ -1,8 +1,8 @@
+var tools = require('tools');
 
 module.exports = {
 
-  is_static: true,
-  name: 'pcBuildProcess',
+  title: 'PC build process selection',
 
   encounters: [
     {
@@ -19,7 +19,7 @@ module.exports = {
 
       // action "standard"
       standard: function( Game, done ){
-        Game.adventure = require('./pcBuildStandard');
+        Game.adventure = tools.files.getAdventure('pcBuildStandard.js');
         Game.encounter = Game.adventure.encounters[0];
         done();
       }

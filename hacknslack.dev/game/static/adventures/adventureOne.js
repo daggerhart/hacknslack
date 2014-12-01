@@ -2,8 +2,7 @@
 
 module.exports = {
 
-  is_static: true,
-  name: 'adventureOne',
+  title: 'adventureOne',
 
   encounters: [
     {
@@ -110,7 +109,10 @@ module.exports = {
 
       path: function( Game, done ){
         Game.output.data.push('You have respect for the law, congrats!  Try feeding your family with that.');
+
         Game.components.Adventure.nextEncounter( Game );
+
+
         done();
       }
     },
