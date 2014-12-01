@@ -19,8 +19,7 @@ module.exports = {
 
       // action "standard"
       standard: function( Game, done ){
-        Game.adventure = tools.files.getAdventure('pcBuildStandard.js');
-        Game.encounter = Game.adventure.encounters[0];
+        Game.loadAdventure('pcBuildStandard.js');
         done();
       }
     }
