@@ -19,7 +19,7 @@ module.exports = {
 
       // action "standard"
       standard: function( Game, done ){
-        Game.loadAdventure('pcBuildStandard.js');
+        Game.startAdventure('pcBuildStandard.js');
         done();
       }
     }

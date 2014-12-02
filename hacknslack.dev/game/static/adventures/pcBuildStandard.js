@@ -120,13 +120,13 @@ module.exports = {
 
       forest: function( Game, done ){
 
-        Game.loadAdventure('adventureOne.js');
+        Game.startAdventure('adventureOne.js');
         done();
       },
 
       mountain: function( Game, done ){
 
-        Game.loadAdventure('adventureOne.js');
+        Game.startAdventure('adventureOne.js');
         done();
       }
     }
