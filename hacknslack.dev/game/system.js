@@ -337,6 +337,9 @@ module.exports = {
 
     Game.debug('On encounter ' + Game.character.current_encounter + ' of adventure ' + Game.adventure.title );
 
+    // header at top of output
+    Game.messages.output.unshift('<div style="border-bottom: 1px dashed #bbb;">Name: ' + Game.character.name + ' -- Class: ' + Game.character.class + ' -- HP: ' + Game.character.attributes.hp + '</div>' );
+
     // append allowed actions to every output
     Game.output('<hr style="margin: 0; border-bottom: 1px dashed #bbb">');
     Game.output( Game.encounter.title );
@@ -352,7 +355,7 @@ module.exports = {
     Game.output('<hr style="border-bottom: 2px solid blue">');
 
     // join with line break for now
-    Game.output.payload = Game.output.data.join('<br>');
+    Game.messages.payload = Game.messages.output.join('<br>');
 
     next();
   }

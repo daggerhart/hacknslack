@@ -52,7 +52,7 @@ app.use('/json',
     console.log("-----------------------------");
     //console.log( req.Game );
     //console.log("-----------------------------");
-    res.json( req.Game.output );
+    res.json( req.Game.messages );
 });
 
 
