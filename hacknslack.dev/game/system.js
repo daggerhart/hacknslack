@@ -256,11 +256,11 @@ module.exports = {
     if ( Game.input.action && Game.allowed_actions[ Game.input.action ] ) {
       Game.input.valid = true;
       Game.input.context = Game.allowed_actions[ Game.input.action ];
-      Game.output.debug.push("doing action - " + Game.input.action );
+      Game.debug("doing action - " + Game.input.action );
       console.log('-------------- VALID ACTION -----------> ' + Game.input.action );
     }
     else {
-      Game.output.debug.push("invalid action - " + Game.input.action );
+      Game.debug("invalid action - " + Game.input.action );
       console.log('---!!!!!------- INVALID ACTION -----------> ' + Game.input.action );
     }
 
@@ -335,34 +335,25 @@ module.exports = {
   buildHTMLOutput: function( req, res, next ){
     var Game = req.Game;
 
-    // TODO move this to somewhere better
+    Game.debug('On encounter ' + Game.character.current_encounter + ' of adventure ' + Game.adventure.title );
+
     // append allowed actions to every output
-    if ( Game.output.data.length ) {
-      Game.output.data.push('<hr style="margin: 0; border-bottom: 1px dashed #bbb">');
-    }
-    Game.output.data.push( Game.encounter.title );
-    Game.output.data.push( Game.encounter.desc );
+    Game.output('<hr style="margin: 0; border-bottom: 1px dashed #bbb">');
+    Game.output( Game.encounter.title );
+    Game.output( Game.encounter.desc );
 
     Object.keys( Game.allowed_actions ).forEach(function( key ){
       if ( ! Game.allowed_actions[ key ].silent ) {
-        Game.output.data.push( '- ' + key + ': ' + Game.allowed_actions[ key ].text );
+        Game.output( '- ' + key + ': ' + Game.allowed_actions[ key ].text );
       }
     });
     // end
 
-    // provide current character info on each action
-    if ( Game.character.attributes ) {
-      Game.output.data.unshift('<div style="border-bottom: 1px dashed #bbb;">Name: ' + Game.character.name + ' -- Class: ' + Game.character.class + ' -- HP: ' + Game.character.attributes.hp + '</div>' );
-    }
+    Game.output('<hr style="border-bottom: 2px solid blue">');
 
-    // should be an array of stuff to output
-    payload = Game.output.data.join('<br>');
+    // join with line break for now
+    Game.output.payload = Game.output.data.join('<br>');
 
-    payload+= '<hr style="border-bottom: 2px solid blue">';
-
-    req.Game.output.payload = payload;
-
-    Game.output.debug.push('On encounter ' + Game.character.current_encounter + ' of adventure ' + Game.adventure.title );
     next();
   }
 }

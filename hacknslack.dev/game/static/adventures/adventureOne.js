@@ -108,11 +108,9 @@ module.exports = {
       fail: [],
 
       path: function( Game, done ){
-        Game.output.data.push('You have respect for the law, congrats!  Try feeding your family with that.');
+        Game.output('You have respect for the law, congrats!  Try feeding your family with that.');
 
-        Game.components.Adventure.nextEncounter( Game );
-
-
+        Game.nextEncounter();
         done();
       }
     },
@@ -139,7 +137,7 @@ module.exports = {
       ],
 
       push: function( Game, done){
-        Game.output.data.push("you tried to push it but nothing happened");
+        Game.output("you tried to push it but nothing happened");
         done();
       }
     }
