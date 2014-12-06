@@ -31,7 +31,7 @@ module.exports = {
         attribute: 'mind'
       },
       // using an array to alias the global attack action
-      attack_alias:  ['answer', 'The answer was inside you all along!'],
+      attack_alias:  ['answer', 'You correctly respond to the riddle with "A Purple Nurple."  The answer was inside you all along!'],
       success: [
         { amount: 10, type: 'heal' },
         { amount: 'You got healed 10 HP!', type: 'output' },

@@ -80,7 +80,7 @@ module.exports = [
   },
   {
     title: "The Highwaymen",
-    desc: "Four beardy bandits with guitars waylay you! They challenge you to a drinking contest. It's awesosome!",
+    desc: "Four beardy bandits with guitars waylay you! They challenge you to a drinking contest. It's awesome!",
     tags: ["bandit"],
     challenge: {
       attribute: "spirit"
@@ -93,5 +93,13 @@ module.exports = [
     challenge: {
       attribute: "spirit"
     }
-  },  
+  },
+  {
+    title: "The Maestro",
+    desc: "A man sits on the side of the road, singing.  His song is oddly disorienting, and you feel yourself falling asleep.  You should probably try to shake it off.",
+    tags: ["bandit"],
+    challenge: {
+      attribute: "spirit"
+    }
+  }  
 ]
