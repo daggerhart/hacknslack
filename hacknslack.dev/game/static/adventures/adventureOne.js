@@ -19,7 +19,8 @@ module.exports = {
       success: [],
       fail: [
         { amount: 5, type: 'dmg' }, // an effect
-        { amount: 'The wolf bested you and bites your foot for 5 HP!', type: 'output' }
+        { amount: 'The wolf bested you and bites your foot for 5 HP!', type: 'output' },
+        { amount: 17, type: 'xp' }
       ]
     },
     {
@@ -33,7 +34,8 @@ module.exports = {
       attack_alias:  ['answer', 'The answer was inside you all along!'],
       success: [
         { amount: 10, type: 'heal' },
-        { amount: 'You got healed 10 HP!', type: 'output' }
+        { amount: 'You got healed 10 HP!', type: 'output' },
+        { amount: 17, type: 'xp' }
       ],
       fail: []
     },
