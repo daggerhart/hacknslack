@@ -300,6 +300,27 @@ module.exports = {
   },
 
   /**
+   * Check the state of the game after execution.
+   *
+   * @param req
+   * @param res
+   * @param next
+   */
+  checkGameState: function( req, res, next ){
+    var Game = req.Game;
+
+    // character death
+    if ( Game.character && Game.character.attributes ){
+      if ( Game.character.attributes.hp < 1 ) {
+        Game.startAdventure('death.js');
+        Game.character = new Character();
+      }
+    }
+
+    next();
+  },
+
+  /**
    * Save the state of the game
    *
    * @param req

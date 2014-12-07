@@ -18,7 +18,7 @@ module.exports = {
       attack_alias: ['swat',  'Swat him with a rolled up newspaper!' ],
       success: [],
       fail: [
-        { amount: 5, type: 'dmg' }, // an effect
+        { amount: 2, type: 'dmg' }, // an effect
         { amount: 'The wolf bested you and bites your foot for 5 HP!', type: 'output' },
         { amount: 17, type: 'xp' }
       ]
@@ -33,7 +33,7 @@ module.exports = {
       // using an array to alias the global attack action
       attack_alias:  ['answer', 'You correctly respond to the riddle with "A Purple Nurple."  The answer was inside you all along!'],
       success: [
-        { amount: 10, type: 'heal' },
+        { amount: 1, type: 'heal' },
         { amount: 'You got healed 10 HP!', type: 'output' },
         { amount: 17, type: 'xp' }
       ],
@@ -44,7 +44,7 @@ module.exports = {
       desc: "ah-oooooooooohh... eck eck  wah-ooooooooooh!",
 
       challenge: {
-        rating: 10,
+        rating: 5,
         attribute: 'spirit'
       },
 
@@ -60,7 +60,7 @@ module.exports = {
       success: [],
 
       fail: [
-        { amount: 5, type: 'dmg' }
+        { amount: 2, type: 'dmg' }
       ]
     },
     {
@@ -68,7 +68,7 @@ module.exports = {
       desc: "BORING",
 
       challenge: {
-        rating: 10,
+        rating: 7,
         attribute: 'body'
       },
 
@@ -80,7 +80,7 @@ module.exports = {
       success: [],
 
       fail: [
-        { amount: 5, type: 'dmg' }
+        { amount: 2, type: 'dmg' }
       ]
     },    
     
