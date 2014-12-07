@@ -316,6 +316,12 @@ module.exports = {
         Game.character = new Character();
       }
     }
+    
+    if ( Game.character && Game.character.xp) {
+      if ( Game.character.xp > 100 ) {
+      	Game.character.levelUp();      
+      }
+    }
 
     next();
   },
