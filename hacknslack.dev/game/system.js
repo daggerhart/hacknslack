@@ -116,7 +116,7 @@ module.exports = {
     var player = req.Game.player;
 
     if ( player.characters.current ){
-      req.Game.character = player.characters.current;
+      req.Game.character = new Character( player.characters.current );
       if (!_.isEmpty(req.Game.character.class)) {
         if (player.characters.current) {
           console.log("player class: " + player.characters.current.class.name);
@@ -143,7 +143,7 @@ module.exports = {
   loadAdventure: function( req, res, next){
     var character = req.Game.character;
 
-    if ( character.adventure ){
+    if ( !_.isEmpty( character.adventure ) ){
       req.Game.adventure = new Adventure( character.adventure );
       console.log('- adventure loaded from character');
     }
