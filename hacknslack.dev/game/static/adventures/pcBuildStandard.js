@@ -33,7 +33,7 @@ module.exports = {
         var Character = require('character');
 
         var new_character = {
-          class: 'savage',
+          class: tools.files.getClass("savage.js"),
           level: 1,
           attributes: {
             body: 10,
