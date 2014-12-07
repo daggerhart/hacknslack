@@ -12,11 +12,11 @@ module.exports = [
   }
 */
   {
-    title: '',
-    desc: '',
+    title: 'basic haint',
+    desc: 'booooo',
     tags: ['haunted'],
     challenge: {
-      attribute: ''
+      attribute: 'spirit'
     }
   }
 ]

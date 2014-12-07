@@ -15,81 +15,11 @@ module.exports = [
   Body!
 */
   {
-    title: '',
-    desc: '',
+    title: 'basic town',
+    desc: 'basic',
     tags: ['town'],
     challenge: {
-      attribute: 'body'
+      attribute: "body"
     }
-  },
-  {
-    title: '',
-    desc: '',
-    tags: ['town'],
-    challenge: {
-      attribute: 'body'
-    }
-  },
-  {
-    title: '',
-    desc: '',
-    tags: ['town'],
-    challenge: {
-      attribute: 'body'
-    }
-  },
-/*
-  Mind!
-*/
-  {
-    title: '',
-    desc: '',
-    tags: ['town'],
-    challenge: {
-      attribute: 'mind'
-    }
-  },
-  {
-    title: '',
-    desc: '',
-    tags: ['town'],
-    challenge: {
-      attribute: 'mind'
-    }
-  },
-  {
-    title: '',
-    desc: '',
-    tags: ['town'],
-    challenge: {
-      attribute: 'mind'
-    }
-  },  
-/*
-  Spirit!
-*/
-  {
-    title: '',
-    desc: '',
-    tags: ['town'],
-    challenge: {
-      attribute: 'spirit'
-    }
-  },
-  {
-    title: '',
-    desc: '',
-    tags: ['town'],
-    challenge: {
-      attribute: 'spirit'
-    }
-  },
-  {
-    title: '',
-    desc: '',
-    tags: ['town'],
-    challenge: {
-      attribute: 'spirit'
-    }
-  },    
+  }    
 ]

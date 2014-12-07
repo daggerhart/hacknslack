@@ -12,11 +12,11 @@ module.exports = [
   }
 */
   {
-    title: '',
-    desc: '',
+    title: 'basic arcane encounter',
+    desc: 'this thing be basic',
     tags: ['arcane'],
     challenge: {
-      attribute: ''
+      attribute: 'mind'
     }
   }
 ]

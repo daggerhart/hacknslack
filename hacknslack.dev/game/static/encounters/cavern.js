@@ -12,11 +12,11 @@ module.exports = [
   }
 */
   {
-    title: '',
-    desc: '',
+    title: 'basic cavern encounter',
+    desc: 'look this this be basic',
     tags: ['cavern'],
     challenge: {
-      attribute: ''
+      attribute: 'mind'
     }
   }
 ]

@@ -12,11 +12,11 @@ module.exports = [
   }
 */
   {
-    title: '',
-    desc: '',
+    title: 'basic divine encounter',
+    desc: 'basic',
     tags: ['divine'],
     challenge: {
-      attribute: ''
+      attribute: 'spirit'
     }
   }
 ]
