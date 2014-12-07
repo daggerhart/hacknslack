@@ -35,7 +35,7 @@ module.exports = {
       // using an array to alias the global attack action
       attack_alias:  ['answer', 'you are the riddle champion after all...'],
       success: [
-        { amount: 1, type: 'heal' },
+        { amount: 15, type: 'heal' },
         { amount: 'You correctly respond to the riddle with "A Purple Nurple."  The answer was inside you all along!', type: 'output' },
         { amount: 17, type: 'xp' }
       ],

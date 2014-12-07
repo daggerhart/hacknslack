@@ -313,8 +313,8 @@ module.exports = {
     var Game = req.Game;
 
     // character death
-    if ( Game.character && Game.character.attributes ){
-      if ( Game.character.attributes.hp < 1 ) {
+    if ( Game.character && Game.character.attributes.hp > 0 ){
+      if ( Game.character.hp < 1 ) {
         Game.startAdventure('death.js');
         Game.character = new Character();
       }
@@ -379,7 +379,7 @@ module.exports = {
     if ( Game.character.attributes ) {
       Game.messages.output.unshift('<div style="border-bottom: 1px dashed #bbb;">Name: '
         + Game.character.name + ' -- Class: ' + Game.character.class.name 
-        + ' -- HP: ' + Game.character.attributes.hp  
+        + ' -- HP: ' + Game.character.hp + ' / ' + Game.character.attributes.hp
         + ' -- AD: ' + ( Game.character.current_encounter + 1) + '/' + Game.adventure.encounters.length
         + '' + Game.adventure.title
         + '</div>');
