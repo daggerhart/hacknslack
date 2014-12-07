@@ -368,7 +368,12 @@ module.exports = {
 
     // header at top of output
     if ( Game.character.attributes ) {
-      Game.messages.output.unshift('<div style="border-bottom: 1px dashed #bbb;">Name: ' + Game.character.name + ' -- Class: ' + Game.character.class.name + ' -- HP: ' + Game.character.attributes.hp + '</div>');
+      Game.messages.output.unshift('<div style="border-bottom: 1px dashed #bbb;">Name: '
+        + Game.character.name + ' -- Class: ' + Game.character.class.name 
+        + ' -- HP: ' + Game.character.attributes.hp  
+        + ' -- EP: ' + Game.character.current_encounter
+        + ' -- AD: ' + Game.adventure.title
+        + '</div>');
     }
 
     // append allowed actions to every output
