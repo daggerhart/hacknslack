@@ -211,6 +211,7 @@ module.exports = {
 
     // character_class
     if ( Game.character && Game.character.class && Game.character.class.actions ){
+      Game.allowed_actions.push('status');
       Game.getActions( Game.character.class, 'character_class');
     }
 
