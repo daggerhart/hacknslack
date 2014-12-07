@@ -16,7 +16,9 @@ module.exports = {
 
       // using an array to alias the global attack action
       attack_alias: ['swat',  'Swat him with a rolled up newspaper!' ],
-      success: [],
+      success: [
+        { amount: 'You strike the wolf solidly across the nose and he runs away!', type: 'output' },      
+      ],
       fail: [
         { amount: 2, type: 'dmg' }, // an effect
         { amount: 'The wolf bested you and bites your foot for 5 HP!', type: 'output' },
@@ -37,7 +39,9 @@ module.exports = {
         { amount: 'You got healed 10 HP!', type: 'output' },
         { amount: 17, type: 'xp' }
       ],
-      fail: []
+      fail: [
+        { type: "output", amount: "You incorrectly respond to the riddle with 'in my pocket'. The confused goblin renders you no aid."}
+      ]
     },
     {
       title: "Unsettling Spirit",
@@ -57,10 +61,13 @@ module.exports = {
           text: 'Ba-dabap-bopbop'
         }
       ],
-      success: [],
+      success: [
+        {type: "output", amount: "YOU KNEW WHO TO CALL"}
+      ],
 
       fail: [
-        { amount: 2, type: 'dmg' }
+        { amount: 2, type: 'dmg' },
+        { type: "output", amount: "The ghost bops you on the head and flies away!" },
       ]
     },
     {
@@ -77,9 +84,12 @@ module.exports = {
         // provide default attack action
         'attack'
       ],
-      success: [],
+      success: [
+        {type: "output", amount: "YOU WIN!"}
+      ],
 
       fail: [
+      	{type: "output", amount: "YOU LOSE!"},
         { amount: 2, type: 'dmg' }
       ]
     },    
@@ -144,7 +154,15 @@ module.exports = {
       push: function( Game, done){
         Game.output("you tried to push it but nothing happened");
         done();
-      }
+      },
+      success: [
+        {type: "output", amount: "The death knight shamefully lowers his head and wanders off, rethinking his unlife choices."}
+      ],
+
+      fail: [
+      	{type: "output", amount: "The death knight shouts back at you, criticizing you in ever way but especially your haircut!"},
+        { amount: 2, type: 'dmg' }
+      ]      
     }
   ]
 }

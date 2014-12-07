@@ -11,7 +11,7 @@ module.exports = {
 			text: "IT'S A EUPHAMISM",
 		}
 	],
-	hawk: function( Game, done ) {
+	clean: function( Game, done ) {
 		// TODO: usefulness
 		Game.output("WHY IS THERE SO MUCH BLOOD.");
 		done();
