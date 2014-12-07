@@ -8,7 +8,7 @@ module.exports = {
 	},
 	actions: [
 		{
-			cmd: "WOOO",
+			cmd: "rage",
 			text: "FLIP THE FUCK OUT",
 		}
 	],

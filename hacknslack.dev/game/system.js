@@ -209,8 +209,9 @@ module.exports = {
       Game.getActions( Game.encounter, 'encounter');
     }
 
-    if ( Game.character && Game.character.actions ){
-      Game.getActions( Game.character, 'character');
+    // character_class
+    if ( Game.character && Game.character.class && Game.character.class.actions ){
+      Game.getActions( Game.character.class, 'character_class');
     }
 
     if ( Game.character && Game.character.equipment && Game.character.equipment.length ){
@@ -296,6 +297,27 @@ module.exports = {
     else {
       next();
     }
+  },
+
+  /**
+   * Check the state of the game after execution.
+   *
+   * @param req
+   * @param res
+   * @param next
+   */
+  checkGameState: function( req, res, next ){
+    var Game = req.Game;
+
+    // character death
+    if ( Game.character && Game.character.attributes ){
+      if ( Game.character.attributes.hp < 1 ) {
+        Game.startAdventure('death.js');
+        Game.character = new Character();
+      }
+    }
+
+    next();
   },
 
   /**
