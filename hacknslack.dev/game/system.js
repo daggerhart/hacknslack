@@ -35,7 +35,7 @@ var Player    = require('player');
 var Character = require('character');
 var Adventure = require('adventure');
 var Encounter = require('encounter');
-
+var _         = require('lodash');
 
 
 module.exports = {
@@ -117,6 +117,13 @@ module.exports = {
 
     if ( player.characters.current ){
       req.Game.character = player.characters.current;
+      if (!_.isEmpty(req.Game.character.class)) {
+        if (player.characters.current) {
+          console.log("player class: " + player.characters.current.class.name);
+          req.Game.character.class = tools.files.getClass(player.characters.current.class.filename);
+          console.log(req.Game.character.class);
+        }
+      }
       console.log('- character loaded');
     }
     else {
@@ -339,7 +346,7 @@ module.exports = {
 
     // header at top of output
     if ( Game.character.attributes ) {
-      Game.messages.output.unshift('<div style="border-bottom: 1px dashed #bbb;">Name: ' + Game.character.name + ' -- Class: ' + Game.character.class + ' -- HP: ' + Game.character.attributes.hp + '</div>');
+      Game.messages.output.unshift('<div style="border-bottom: 1px dashed #bbb;">Name: ' + Game.character.name + ' -- Class: ' + Game.character.class.name + ' -- HP: ' + Game.character.attributes.hp + '</div>');
     }
 
     // append allowed actions to every output
