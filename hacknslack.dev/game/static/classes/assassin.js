@@ -1,8 +1,6 @@
 module.exports = {
 	name: 'assassin',
-	description: 'A perfectly legitimate businessmen conducting legal affairs '
-	  + 'why are you judging them.'
-	
+	description: 'A perfectly legitimate businessmen conducting legal affairs why are you judging them.',
 	attributes: {
 	  hp: "strong",
 	  spirit: "weak",

@@ -84,8 +84,9 @@ module.exports = {
       ]
     },    
     
-    
-    {
+    // fuck this encounter
+    // -mike
+    /*{
       title: "Split path",
       desc: "A path to your left, or a locked door to the right.",
 
@@ -117,7 +118,7 @@ module.exports = {
         Game.nextEncounter();
         done();
       }
-    },
+    },*/
 
     {
       title: 'Death Knight',
