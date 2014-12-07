@@ -36,7 +36,7 @@ var Character = require('character');
 var Adventure = require('adventure');
 var Encounter = require('encounter');
 var _         = require('lodash');
-
+var globalActions = require('globalActions');
 
 module.exports = {
 
@@ -211,7 +211,9 @@ module.exports = {
 
     // character_class
     if ( Game.character && Game.character.class && Game.character.class.actions ){
-      Game.allowed_actions.push('status');
+      Game.allowed_actions.status = _.clone( globalActions.actions.status );
+      Game.allowed_actions.status.context = 'global';
+
       Game.getActions( Game.character.class, 'character_class');
     }
 
