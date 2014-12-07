@@ -380,8 +380,8 @@ module.exports = {
       Game.messages.output.unshift('<div style="border-bottom: 1px dashed #bbb;">Name: '
         + Game.character.name + ' -- Class: ' + Game.character.class.name 
         + ' -- HP: ' + Game.character.attributes.hp  
-        + ' -- EP: ' + Game.character.current_encounter
-        + ' -- AD: ' + Game.adventure.title
+        + ' -- AD: ' + ( Game.character.current_encounter + 1) + '/' + Game.adventure.encounters.length
+        + ' of ' + Game.adventure.title
         + '</div>');
     }
 
