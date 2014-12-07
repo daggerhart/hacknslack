@@ -120,7 +120,7 @@ module.exports = {
 
       fail: [
         // POISON TRAP!
-        { type: 'buff', amount: { amount: -2, attribute:  'body', duration: 2 } },
+        { type: 'buff', amount: { name: 'poison', amount: -2, attribute:  'body', duration: 2 } },
         { type: 'output', amount: 'You failed to open the door, but you did not fail to set off the Poison Trap!' }
       ],
 

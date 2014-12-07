@@ -17,11 +17,11 @@ module.exports = {
       actions: [
       	{
       	  cmd: "choose",
-      	  text: "choose [className]",
+      	  text: "choose a class by name"
       	},
       	{
       	  cmd: "list",
-      	  text: "list classes to choose",
+      	  text: "list available classes"
       	}
       ],
     

@@ -17,17 +17,20 @@ module.exports = {
 
 	rage: function( Game, done ) {
 		// TODO: usefulness
-		Game.output("RAAWAWRAWRRRR!!!!!");
 
-    if ( !Game.character.is_raging ) {
+    if ( ! Game.character.hasBuff('raging') ) {
+      Game.output("RAAWAWRAWRRRR!!!!!");
       var buff = {
+        name: 'raging',
         amount: 3,
         attribute: 'body',
         duration: 2
       };
 
       Game.character.addBuff(buff);
-      Game.character.is_raging = true;
+    }
+    else {
+      Game.output("Already raging");
     }
 
 		done();
