@@ -85,12 +85,14 @@ module.exports = {
         'attack'
       ],
       success: [
-        {type: "output", amount: "YOU WIN!"}
+        {type: "output", amount: "YOU WIN! 100xp!"},
+        {type: "xp", amount: 100}
       ],
 
       fail: [
-      	{type: "output", amount: "YOU LOSE!"},
-        { amount: 2, type: 'dmg' }
+      	{type: "output", amount: "YOU LOSE! 100xp!"},
+        { amount: 2, type: 'dmg' },
+        { type: "xp", amount: 100}
       ]
     },    
     
