@@ -23,7 +23,7 @@ module.exports = {
       var buff = {
         amount: 3,
         attribute: 'body',
-        duration: 5
+        duration: 2
       };
 
       Game.character.addBuff(buff);

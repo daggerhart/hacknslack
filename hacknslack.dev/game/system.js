@@ -381,7 +381,7 @@ module.exports = {
         + Game.character.name + ' -- Class: ' + Game.character.class.name 
         + ' -- HP: ' + Game.character.attributes.hp  
         + ' -- AD: ' + ( Game.character.current_encounter + 1) + '/' + Game.adventure.encounters.length
-        + ' of ' + Game.adventure.title
+        + '' + Game.adventure.title
         + '</div>');
     }
 
