@@ -209,8 +209,9 @@ module.exports = {
       Game.getActions( Game.encounter, 'encounter');
     }
 
-    if ( Game.character && Game.character.actions ){
-      Game.getActions( Game.character, 'character');
+    // character_class
+    if ( Game.character && Game.character.class && Game.character.class.actions ){
+      Game.getActions( Game.character.class, 'character_class');
     }
 
     if ( Game.character && Game.character.equipment && Game.character.equipment.length ){
