@@ -21,7 +21,7 @@ module.exports = {
       ],
       fail: [
         { amount: 2, type: 'dmg' }, // an effect
-        { amount: 'The beast bites your foot!', type: 'output' },
+        { amount: 'The beast bites your foot hard!', type: 'output' },
         { amount: 17, type: 'xp' }
       ]
     },
