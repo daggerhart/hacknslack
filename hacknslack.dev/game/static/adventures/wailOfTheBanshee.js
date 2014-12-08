@@ -14,7 +14,7 @@ There are 4 places to go in town.
  - Blister's Blessing Emporium
     - owned by a Blister Halfman - the halfling
 
- - Physic Laundry Services
+ - Psychic Laundry Services
     - run by Marie the Clairvoyant
     - she did it. sacrificed Agnei Tavernkeeperson to the Sea Demon
 
@@ -222,11 +222,11 @@ var wailOfTheBanshee = {
      */
     {
       // the banshee is a spirit battle
-      freeInfo: "The banshee attacks your very soul.  If you decide fight her, be brave.",
+      freeInfo: "The banshee attacks your very soul.  If you decide to fight her, be brave.",
 
       // info received from successful attack
       // redherring
-      hiddenInfo: "Late at night, while riffling through a stack of papers in the back room of the tavern"
+      hiddenInfo: "Late at night, while rifling through a stack of papers in the back room of the tavern"
       + "you discover Jerry's diary. The most recent entry ends, '... Dad, what have you done?!?'",
 
       // user has attacked
@@ -366,7 +366,7 @@ var wailOfTheBanshee = {
         + "The legends say it eats the soul of the innocent, and will barter for them in exchange for great power.",
 
       // info received from successful attack
-      hiddenInfo: "Ok!  I'll tell you.  I dreamed of a beast od mist rising from the sea and devouring my wife. "
+      hiddenInfo: "Ok!  I'll tell you.  I dreamed of a beast of mist rising from the sea and devouring my wife. "
         + "And there laughing with the demon was Marie Clairvoyant. She burned like fire, and seemed to become young again.",
 
       // user has attacked
@@ -527,7 +527,7 @@ var wailOfTheBanshee = {
       desc: "Before you, a ghostly image of a rotting Agnie hovers a foot off the floor, "
         + "her back to you as she stares out at the sea. "
         + "She slowly turns her wet, dead head around towards you.  Her white, bloated eyes staring at nothing, her mouth agape."
-        + "Her scream echo throughout your brain, \"WHOOOOOO DID THIS TO MEEEEEE?\". Dare you answer?",
+        + "Her scream echoes throughout your brain, \"WHOOOOOO DID THIS TO MEEEEEE?\". Dare you answer?",
 
       // user can not goto this encounter directly
       canGoTo: false,
