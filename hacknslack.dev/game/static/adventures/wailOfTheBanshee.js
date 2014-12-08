@@ -698,7 +698,22 @@ var wailOfTheBanshee = {
       rebuke: actionRebukeBanshee,
 
       // answer the riddle of the banshee
-      answer: actionAnswerBanshee
+      answer: actionAnswerBanshee,
+
+      // unlike an action, this method does not have a done callback
+      afterLoad: function( Game ){
+        // remove the navigation methods the user can no longer perform
+        var remaining_actions = [];
+
+        // loop through adventure actions and remove them as desired
+        _.forEach( Game.adventure.actions, function( action ){
+          if ( action.cmd != 'showmap' && action.cmd != 'goto' ){
+            remaining_actions.push( action );
+          }
+        });
+
+        Game.adventure.actions = remaining_actions;
+      }
     },
 
     /**

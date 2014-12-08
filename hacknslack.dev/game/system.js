@@ -183,6 +183,24 @@ module.exports = {
   },
 
   /**
+   * A new hook-thing to let objects respond to the game being loaded
+   *
+   * @param req
+   * @param res
+   * @param next
+   */
+  afterLoad: function( req, res, next ){
+    var Game = req.Game;
+
+    // allow adventure and encounter to respond to game after loading
+    _.forEach([ Game.adventure, Game.encounter ], function( obj ){
+      obj.afterLoad( Game );
+    });
+
+    next();
+  },
+
+  /**
    *  Get actions from context:
    *      Game.encounter,
    *      Game.adventure,

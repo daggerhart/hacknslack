@@ -39,10 +39,12 @@ app.use('/json',
   System.loadAdventure,
   System.loadEncounter,
   System.findAllowedActions,  // find current actions
+  System.afterLoad,           // allow main objects to respond to game after it has loaded
   System.validateGame,        // ensure the action given is valid in this context
   System.executeGame,         // do the action
   System.checkGameState,      // deal with the outcome of the action
   System.saveGame,            // save the results
+  System.afterLoad,           // allow main objects to respond to game after it has loaded
   System.findAllowedActions,  // find new actions in case they have changed
   System.buildHTMLOutput,     // output for this endpoint
 
