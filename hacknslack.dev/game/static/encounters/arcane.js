@@ -28,5 +28,13 @@ module.exports = [
       },
       { type: 'output', amount: '"Your weapon is now flamey.  It will hurt bad guys more.  But only for a little while."'}
     ]
-  } 
+  },
+  {
+    title: "Glowing Blue Wall",
+    desc: '',
+    tags: ["arcane"],
+    challenge: {
+      attribute: "mind",
+    }
+  }
 ]
