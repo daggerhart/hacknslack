@@ -54,6 +54,10 @@ function actionAttackOnce( Game, done ){
     done();
   }
   else {
+    // hidden info doesn't attach correct to the encounter as an effect object because of javascript stuff
+    // do it here so that it works right
+    this.success.push({ amount: this.hiddenInfo, type: 'output' });
+
     // do an attack action
     var action = _.clone(globalActions.actions.attack);
     action.context = 'global';
@@ -221,6 +225,12 @@ var wailOfTheBanshee = {
      * run by Jerry Tavernkeeperson
      */
     {
+      title: "Tavern's Place",
+      desc: "In a dark and musky tavern, you meet Jerry Tavernkeeperson, owner of this fine establishment.",
+
+      // user can goto this encounter directly
+      canGoTo: true,
+
       // the banshee is a spirit battle
       freeInfo: "The banshee attacks your very soul.  If you decide to fight her, be brave.",
 
@@ -228,15 +238,6 @@ var wailOfTheBanshee = {
       // redherring
       hiddenInfo: "Late at night, while rifling through a stack of papers in the back room of the tavern"
       + "you discover Jerry's diary. The most recent entry ends, '... Dad, what have you done?!?'",
-
-      // user has attacked
-      //hasAttacked: false,
-
-      // user can goto this encounter directly
-      canGoTo: true,
-
-      title: "Tavern's Place",
-      desc: "In a dark and musky tavern, you meet Jerry Tavernkeeperson, owner of this fine establishment.",
 
       challenge: {
         rating: 4,
@@ -248,10 +249,11 @@ var wailOfTheBanshee = {
         { cmd: 'gatherinfo', text: 'Ask Jerry what he knows about this whole banshee business.' },
         { cmd: 'snooparound', text: 'Snoop around while no one is looking' }
       ],
+
       success: [
-        { amount: 17, type: 'xp' },
-        { amount: this.hiddenInfo, type: 'output' }
+        { amount: 17, type: 'xp' }
       ],
+
       fail: [
         { amount: 10, type: 'xp' },
         { amount: "You don't find anything helpful and decide to move on.", type: 'output' }
@@ -285,15 +287,12 @@ var wailOfTheBanshee = {
       desc: "\"Bless you my friend, how may I help you?\", says Blister Halfman, "
         + "the halfling owner of this decadent emporium of trinkets and fetishes.",
 
+      // user can goto this encounter directly
+      canGoTo: true,
+
       // the
       freeInfo: "I remember the night she died those 20 years ago like it was yesterday. "
       + "But I can't just go around telling random strangers about such intimate details. ",
-
-      // user has attacked
-      //hasAttacked: false,
-
-      // user can goto this encounter directly
-      canGoTo: true,
 
       // info received from successful attack
       // redherring
@@ -321,10 +320,11 @@ var wailOfTheBanshee = {
         rating: 4,
         attribute: 'spirit'
       },
+
       success: [
-        { amount: 17, type: 'xp' },
-        { amount: this.hiddenInfo, type: 'output' }
+        { amount: 17, type: 'xp' }
       ],
+
       fail: [
         { amount: 10, type: 'xp' },
         { amount: "Blister plays his cards close to his chest, and keeps his secrets even closer.  Without much to go on, you decide to move on.", type: 'output' }
@@ -359,6 +359,9 @@ var wailOfTheBanshee = {
       desc: "\"Welcome!\", the portly man behind the counter proclaimed.  The shop is crowded with somewhat dusty supplies, "
         + "\"I'm Tom Tavernkeeperson, what can I do for you?\"",
 
+      // user can goto this encounter directly
+      canGoTo: true,
+
       // the
       freeInfo: "Yes, the banshee. There are rumors that it is my own dead wife, back from the grave, "
         + "in seek of vengeance, justice, revenge, and closure.  I have not seen the ghost myself, but "
@@ -368,12 +371,6 @@ var wailOfTheBanshee = {
       // info received from successful attack
       hiddenInfo: "Ok!  I'll tell you.  I dreamed of a beast of mist rising from the sea and devouring my wife. "
         + "And there laughing with the demon was Marie Clairvoyant. She burned like fire, and seemed to become young again.",
-
-      // user has attacked
-      //hasAttacked: false,
-
-      // user can goto this encounter directly
-      canGoTo: true,
 
       wares: {
         // a potion item
@@ -398,10 +395,11 @@ var wailOfTheBanshee = {
         rating: 4,
         attribute: 'mind'
       },
+
       success: [
-        { amount: 17, type: 'xp' },
-        { amount: this.hiddenInfo, type: 'output' }
+        { amount: 17, type: 'xp' }
       ],
+
       fail: [
         { amount: 10, type: 'xp' },
         { amount: "GET OUT!", type: 'output' }
@@ -426,7 +424,6 @@ var wailOfTheBanshee = {
 
       // one-time attack
       presshim: actionAttackOnce
-
     },
 
     /**
@@ -439,6 +436,9 @@ var wailOfTheBanshee = {
       desc: "Inside the flamboyant hut, you meet Maria Clairvoyant the proprietor. "
       + "'Welcome friend, I've been expecting your visit', she says. 'How may I help you?'",
 
+      // user can goto this encounter directly
+      canGoTo: true,
+
       freeInfo: "Yes, I knew Agnei Tavernkepperson, we were once good friends. "
         + "It's really too bad what her husband did.",
 
@@ -448,20 +448,15 @@ var wailOfTheBanshee = {
       + "is sacrificing Agnie Tavernkeeperson to the Mist Demon, a sentient cloud of acid particles. "
       + "When you can take it no more, you break contact and stumble out of the laundromat.",
 
-      // user has attacked
-      //hasAttacked: false,
-
-      // user can goto this encounter directly
-      canGoTo: true,
-
       challenge: {
         rating: 5,
         attribute: 'mind'
       },
+
       success: [
-        { amount: 17, type: 'xp' },
-        { amount: this.hiddenInfo, type: 'output' }
+        { amount: 17, type: 'xp' }
       ],
+
       fail: [
         { amount: 10, type: 'xp' },
         { amount: "Silly child, I do not take such things so lightly.", type: 'output' }
@@ -491,14 +486,8 @@ var wailOfTheBanshee = {
       canGoTo: true,
 
       actions: [
-        {
-          cmd: 'lookaround',
-          text: 'Look around for something interesting.'
-        },
-        {
-          cmd: 'confront',
-          text: 'Confront the banshee and end this once and for all.'
-        }
+        { cmd: 'lookaround', text: 'Look around for something interesting.' },
+        { cmd: 'confront', text: 'Confront the banshee and end this once and for all.' }
       ],
 
       //
@@ -509,8 +498,8 @@ var wailOfTheBanshee = {
       //
       confront: function( Game, done ){
         var tone = "You wait outside the old clock tower all night."
-        + "Finally, as dawn begins to break, you hear movement from within. "
-        + "Scaling the tattered spiral staircase within the clock tower, you quickly reach the top. ";
+          + "Finally, as dawn begins to break, you hear movement from within. "
+          + "Scaling the tattered spiral staircase within the clock tower, you quickly reach the top. ";
 
         Game.output("Your resolve is set. This will end today.");
         Game.output( tone );

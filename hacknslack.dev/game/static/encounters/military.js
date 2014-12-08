@@ -40,11 +40,10 @@ module.exports = [
     challenge: {
       attribute: "mind"
     },
-    actions: [{
-      cmd: "attack",
-      alias: "solvemurder",
-      text: "Give it the college try."
-    }]
+    attack_alias: ['solvemurder', "Give it the college try."],
+    success: [
+      { type: 'output', amount: 'It went all the way to the top!  The mayor did it, and you confronted him publicly. Good job!'}
+    ]
   },
   {
     title: "Frameup",
