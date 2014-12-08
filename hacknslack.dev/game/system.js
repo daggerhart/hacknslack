@@ -199,14 +199,12 @@ module.exports = {
     var Game = req.Game;
     Game.allowed_actions = {};
 
-    if ( Game.adventure && Game.adventure.actions ) {
-      Game.getActions( Game.adventure, 'adventure');
-    }
-
-    console.log(Game.encounter);
-
     if ( Game.encounter && ( Game.encounter.actions || Game.encounter.attack_alias ) ) {
       Game.getActions( Game.encounter, 'encounter');
+    }
+
+    if ( Game.adventure && Game.adventure.actions ) {
+      Game.getActions( Game.adventure, 'adventure');
     }
 
     // character_class
@@ -226,7 +224,10 @@ module.exports = {
       });
     }
 
-    if ( Game.character && Game.character.items ){
+    if ( Game.character && Game.character.items && Game.character.items.length ){
+      Game.allowed_actions.item = _.clone( globalActions.actions.item );
+      Game.allowed_actions.item.context = 'global';
+
       for( var i = 0; i < Game.character.items.length; i++ ) {
         if (Game.character.items[i].actions) {
           Game.getActions( Game.character.items[i], 'item');
@@ -293,7 +294,8 @@ module.exports = {
     // TODO: execute action within context
 
     if ( Game.input.valid ) {
-      Game.doAction( function(){
+      var action = Game.allowed_actions[ Game.input.action ];
+      Game.doAction( action, function(){
         next();
       });
     }
@@ -345,6 +347,7 @@ module.exports = {
     var player = Game.player;
     player.characters.current = Game.character;
     player.characters.current.adventure = Game.adventure;
+    player.characters.current.adventure.encounters[ player.characters.current.current_encounter ] = Game.encounter;
 
     // manually mark the character as modified to enforce saving
     // https://github.com/LearnBoost/mongoose/issues/1598

@@ -162,7 +162,7 @@ module.exports = {
 
       mountain: function( Game, done ){
 
-        Game.startAdventure('adventureOne.js');
+        Game.startAdventure('wailOfTheBanshee.js');
         done();
       }
     }
