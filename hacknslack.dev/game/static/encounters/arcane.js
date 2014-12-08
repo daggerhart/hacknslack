@@ -21,7 +21,7 @@ module.exports = [
     attack_alias: ['solveriddle', "Shout out the answer with great vociferousness!"],
     success: [
       { type: 'output', amount: 'Correct, the answer was "Biscuits!."  Way to go!'},
-      { type: 'output', amount: '"We will now make you flamey" the wizards sat in unison.  They wave their hands, and through some hocus pocus, your weapon glows with orange light.'}
+      { type: 'output', amount: '"We will now make you flamey" the wizards sat in unison.  They wave their hands, and through some hocus pocus, your weapon glows with orange light.'},
       { type: 'buff', name: 'flamey', amount: {
         amount: 2, attribute: 'body', duration: 10
         }
