@@ -151,7 +151,8 @@ module.exports = {
         {
           cmd: "mountain",
           text: "There maybe great treasure in those mountains."
-        }
+        },
+        { cmd: 'valley', text: 'The Uncanny Valley'}
       ],
 
       forest: function( Game, done ){
@@ -163,6 +164,13 @@ module.exports = {
       mountain: function( Game, done ){
 
         Game.startAdventure('wailOfTheBanshee.js');
+        done();
+      },
+
+      // random adventure
+      valley: function( Game, done ){
+        Game.nextEncounter();
+
         done();
       }
     }

@@ -43,7 +43,7 @@ function actionGoTo( Game, done ){
       var encounter = Game.adventure.encounters[encounterIndex];
 
       if (encounter.canVisit) {
-        Game.encounter = new Encounter(encounter);
+        Game.encounter = Encounter.create(encounter);
         Game.character.current_encounter = encounterIndex;
 
         Game.output("You go to the " + Game.encounter.title);

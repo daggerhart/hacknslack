@@ -148,13 +148,13 @@ module.exports = {
     var character = req.Game.character;
 
     if ( !_.isEmpty( character.adventure ) ){
-      req.Game.adventure = new Adventure( character.adventure );
+      req.Game.adventure = Adventure.create( character.adventure );
       console.log('- adventure loaded from character');
     }
     else {
       // assign character to first adventure
       var stub = tools.files.getAdventure('pcBuildProcess.js');
-      req.Game.adventure = new Adventure( stub );
+      req.Game.adventure = Adventure.create( stub );
     }
 
     console.log('--------- ADVENTURE -----------');
@@ -171,11 +171,11 @@ module.exports = {
     var adventure = req.Game.adventure;
 
     if ( adventure.encounters[ character.current_encounter ] ){
-      req.Game.encounter = new Encounter( adventure.encounters[ character.current_encounter ] );
+      req.Game.encounter = Encounter.create( adventure.encounters[ character.current_encounter ] );
       console.log('- encounter loaded from adventure');
     }
     else {
-      req.Game.encounter = new Encounter( adventure.encounters[0] );
+      req.Game.encounter = Encounter.create( adventure.encounters[0] );
       req.Game.character.current_encounter = 0;
       console.log('- encounter loaded from first encounter in adventure');
     }
