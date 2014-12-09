@@ -286,7 +286,7 @@ function actionRebukeBanshee( Game, done ){
 function actionAnswerBanshee( Game, done ){
   var name = Game.input.target;
 
-  if ( name == this.riddleAnswer ){
+  if ( name == Game.adventure.riddleAnswer ){
     // you win
     var text = "You name Marie as Agnie's murderer. "
       + "Agnie's spectral form starts to shimmer and shake as she processes this truth. "
@@ -702,17 +702,17 @@ var wailOfTheBanshee = {
 
       // unlike an action, this method does not have a done callback
       afterLoad: function( Game ){
-        // remove the navigation methods the user can no longer perform
-        var remaining_actions = [];
-
-        // loop through adventure actions and remove them as desired
-        _.forEach( Game.adventure.actions, function( action ){
-          if ( action.cmd != 'showmap' && action.cmd != 'goto' ){
-            remaining_actions.push( action );
-          }
-        });
-
-        Game.adventure.actions = remaining_actions;
+        //// remove the navigation methods the user can no longer perform
+        //var remaining_actions = [];
+        //
+        //// loop through adventure actions and remove them as desired
+        //_.forEach( Game.adventure.actions, function( action ){
+        //  if ( action.cmd != 'showmap' && action.cmd != 'goto' ){
+        //    remaining_actions.push( action );
+        //  }
+        //});
+        //
+        //Game.adventure.actions = remaining_actions;
       }
     },
 
