@@ -114,22 +114,26 @@ module.exports = {
    */
   loadCharacter: function( req, res, next){
     var player = req.Game.player;
+    var character;
 
-    if ( player.characters.current ){
-      req.Game.character = new Character( player.characters.current );
-      if (!_.isEmpty(req.Game.character.class)) {
-        if (player.characters.current) {
-          console.log("player class: " + player.characters.current.class.name);
-          req.Game.character.class = tools.files.getClass(player.characters.current.class.filename);
+    if ( player.characters.current ) {
+      character = Character.create( player.characters.current );
+
+      if (!_.isEmpty(character.class)) {
+        if (character.class.filename) {
+          console.log("player class: " + character.class.name);
+          character.class = tools.files.getClass(character.class.filename);
           console.log(req.Game.character.class);
         }
       }
       console.log('- character loaded');
     }
     else {
-      req.Game.character = new Character();
+      character = Character.create();
       console.log('- character created');
     }
+
+    req.Game.character = character;
 
     console.log('--------- CHARACTER -----------');
     console.log('---------------------------');
@@ -336,7 +340,7 @@ module.exports = {
     if ( Game.character && Game.character.attributes.hp > 0 ){
       if ( Game.character.hp < 1 ) {
         Game.startAdventure('death.js');
-        Game.character = new Character();
+        Game.character = Character.create();
       }
     }
     

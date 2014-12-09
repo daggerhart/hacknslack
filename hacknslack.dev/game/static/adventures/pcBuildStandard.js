@@ -86,7 +86,7 @@ module.exports = {
           new_character.hp = new_character.attributes.hp;
 
           // create a new character and save it to the game as the player's current character
-          Game.character = new Character( new_character );
+          Game.character = Character.create( new_character );
 
           Game.nextEncounter();    
         } else {
