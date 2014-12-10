@@ -20,13 +20,13 @@ module.exports = [
     },
     attack_alias: ['solveriddle', 'You shout out the answer with great vociferousness!'],
     success: [
-      { type: 'output', amount: 'Correct, the answer was "Biscuits!."  Way to go!'},
-      { type: 'output', amount: '"We will now make you flamey" the wizards say in unison.  They wave their hands, and through some hocus pocus, your weapon glows with orange light.'},
-      { type: 'buff', name: 'flamey', amount: {
-        amount: 2, attribute: 'body', duration: 10
+      { type: 'output', value: 'Correct, the answer was "Biscuits!."  Way to go!'},
+      { type: 'output', value: '"We will now make you flamey" the wizards say in unison.  They wave their hands, and through some hocus pocus, your weapon glows with orange light.'},
+      { type: 'buff', name: 'flamey', value: {
+        value: 2, attribute: 'body', duration: 10
         }
       },
-      { type: 'output', amount: '"Your weapon is now flamey.  It will hurt bad guys more.  But only for a little while."'}
+      { type: 'output', value: '"Your weapon is now flamey.  It will hurt bad guys more.  But only for a little while."'}
     ]
   },
   {
@@ -38,15 +38,15 @@ module.exports = [
     },
     attack_alias: ['ponderstone', 'You ponder what could make a stone glow blue.'],
     success: [
-      { type: 'output', amount: 'Turns out to be a species of glowing blue moss.  You find the glow comforting.'},
-      { type: 'buff', name: 'comforted', amount: {
-        amount: 1, attribute: 'spirit', duration: 3
+      { type: 'output', value: 'Turns out to be a species of glowing blue moss.  You find the glow comforting.'},
+      { type: 'buff', name: 'comforted', value: {
+        value: 1, attribute: 'spirit', duration: 3
         }
       },
-      { type: 'output', amount: 'For a little while, you feel comforted by the soft blue light.'}
+      { type: 'output', value: 'For a little while, you feel comforted by the soft blue light.'}
     ],
     fail: [
-      { type: 'output', amount: 'The mystery of the blue light eludes you.  Now you will never know why some stones glow blue.'}
+      { type: 'output', value: 'The mystery of the blue light eludes you.  Now you will never know why some stones glow blue.'}
     ]
   },
   {
@@ -58,15 +58,15 @@ module.exports = [
     },
     attack_alias: ['studyrunes', 'You study the runes for a bit.'],
     success: [
-      { type: 'output', amount: 'Your many years of studying ancient draconic runes pay off.  You spend the next hour honing up on the history of the world.'},
-      { type: 'buff', name: 'slightly smarter for a wee bit', amount: {
-        amount: 2, attribute: 'mind', duration: 5
+      { type: 'output', value: 'Your many years of studying ancient draconic runes pay off.  You spend the next hour honing up on the history of the world.'},
+      { type: 'buff', name: 'slightly smarter for a wee bit', value: {
+        value: 2, attribute: 'mind', duration: 5
         }
       },
-      { type: 'output', amount: 'You feel slightly smarter.  You don\'t know how long that will last though, so you should probably put it to good  use soon.'}
+      { type: 'output', value: 'You feel slightly smarter.  You don\'t know how long that will last though, so you should probably put it to good  use soon.'}
     ],
     fail: [
-      { type: 'output', amount: 'Try as you might, you can not suddenly learn to read draconic.  Shame though, you were about to learn the secrets of the universe.  Maybe next time.'}
+      { type: 'output', value: 'Try as you might, you can not suddenly learn to read draconic.  Shame though, you were about to learn the secrets of the universe.  Maybe next time.'}
     ]
   },
   {
@@ -77,12 +77,12 @@ module.exports = [
     },
     attack_alias: ['resisthex', 'You tense up, doing your kegel exercises and closing your eyes, trying to ward off the presumably-horrible effects of the shimmering dust.'],
     success: [
-      { type: 'output', amount: 'You successfully warded off whatever ill effects you may have gotten from the dust.  It never occurred to you that they may be trying to make you fly like Peter Pan.'}
+      { type: 'output', value: 'You successfully warded off whatever ill effects you may have gotten from the dust.  It never occurred to you that they may be trying to make you fly like Peter Pan.'}
     ],
     fail: [
-      { type: 'output', amount: 'The dust gets in your eyes and nose, causing you to sneeze and blink uncontrollably.  You - Achoo! - just - AAAHH CHOOO! - can\'t - SHNAAAAGHOOO! - stop - BLLLLARCHOOO - sneezing!'},
-      { type: 'buff', name: 'sneezy', amount: {
-        amount: -2, attribute: 'body', duration: 5
+      { type: 'output', value: 'The dust gets in your eyes and nose, causing you to sneeze and blink uncontrollably.  You - Achoo! - just - AAAHH CHOOO! - can\'t - SHNAAAAGHOOO! - stop - BLLLLARCHOOO - sneezing!'},
+      { type: 'buff', name: 'sneezy', value: {
+        value: -2, attribute: 'body', duration: 5
         }
       }
     ]

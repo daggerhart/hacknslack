@@ -78,9 +78,9 @@ function actionShowLog( Game, done ){
 function actionShowMap( Game, done ) {
   if ( Game.adventure.canTravel ) {
 
-    _.forEach(this.encounters, function (value, key) {
-      if (value.canVisit) {
-        Game.output('-' + key + ' : ' + value.title);
+    _.forEach(this.encounters, function (encounter, key) {
+      if (encounter.canVisit) {
+        Game.output('-' + key + ' : ' + encounter.title);
       }
     });
   }
@@ -135,7 +135,7 @@ function actionAttackOnce( Game, done ){
   else {
     // hidden info doesn't attach correct to the encounter as an effect object because of javascript stuff
     // do it here so that it works right
-    Game.encounter.success.push({ amount: this.hiddenInfo, type: 'output' });
+    Game.encounter.success.push({ value: this.hiddenInfo, type: 'output' });
 
     // do an attack action
     var action = _.clone(globalActions.actions.attack);
@@ -159,9 +159,9 @@ function actionAttackOnce( Game, done ){
  */
 function actionShowWares( Game, done ){
 
-  _.forIn( this.wares, function( value, key ){
-    if ( ! value.sold ) {
-      Game.output( '-' + key + ' : ' + value.name );
+  _.forIn( this.wares, function( ware, key ){
+    if ( ! ware.sold ) {
+      Game.output( '-' + key + ' : ' + ware.name );
     }
   });
 
@@ -253,7 +253,7 @@ function actionRebukeBanshee( Game, done ){
     Game.output( text );
 
     // successful combat gives 100 gp reward
-    Game.doEffect({amount: 100, type: 'gp'});
+    Game.doEffect({value: 100, type: 'gp'});
   }
   else {
     // you lose
@@ -265,7 +265,7 @@ function actionRebukeBanshee( Game, done ){
 
     // take 4 damage and a curse for your failure
     Game.character.hp -= 4;
-    Game.character.addBuff({name: 'cursed', amount: -2, attribute: 'spirit', duration: 10});
+    Game.character.addBuff({name: 'cursed', value: -2, attribute: 'spirit', duration: 10});
   }
 
   // the player can no longer travel freely throughout town
@@ -297,9 +297,9 @@ function actionAnswerBanshee( Game, done ){
     Game.output( text );
 
     // very long term blessing for solving the mystery
-    Game.character.addBuff({name: 'bansheeblessing', amount: 2, attribute: 'spirit', duration: 20});
+    Game.character.addBuff({name: 'bansheeblessing', value: 2, attribute: 'spirit', duration: 20});
     // heal up to 100 hp
-    Game.doEffect( {amount: 100, type: 'heal' } );
+    Game.doEffect( {value: 100, type: 'heal' } );
   }
   else {
     // you lose
@@ -312,7 +312,7 @@ function actionAnswerBanshee( Game, done ){
 
     // take 4 damage and a curse for your failure
     Game.character.hp -= 4;
-    Game.character.addBuff({name: 'cursed', amount: -2, attribute: 'spirit', duration: 10 });
+    Game.character.addBuff({name: 'cursed', value: -2, attribute: 'spirit', duration: 10 });
   }
 
   // the player can no longer travel freely throughout town
@@ -397,21 +397,21 @@ var wailOfTheBanshee = {
       ],
 
       success: [
-        { amount: 17, type: 'xp' }
+        { value: 17, type: 'xp' }
       ],
 
       fail: [
-        { amount: 10, type: 'xp' },
-        { amount: "You don't find anything helpful and decide to move on.", type: 'output' }
+        { value: 10, type: 'xp' },
+        { value: "You don't find anything helpful and decide to move on.", type: 'output' }
       ],
 
       // get drunk, good for fighting the final banshee
       beerme: function( Game, done ){
         if ( ! Game.character.hasBuff('tipsy') ) {
-          Game.character.addBuff( { name: 'tipsy', amount: -1, attribute: 'mind', duration: 10 } );
+          Game.character.addBuff( { name: 'tipsy', value: -1, attribute: 'mind', duration: 10 } );
         }
         if ( ! Game.character.hasBuff('brave') ) {
-          Game.character.addBuff( { name: 'brave', amount: 1, attribute: 'spirit', duration: 10 } );
+          Game.character.addBuff( { name: 'brave', value: 1, attribute: 'spirit', duration: 10 } );
         }
         Game.output('Ahh.  Refreshing.');
         done();
@@ -450,13 +450,13 @@ var wailOfTheBanshee = {
         // a buff
         blessing: {
           name: "Blessing",
-          amount: 2,
+          value: 2,
           attribute: 'spirit',
           duration: 10
         },
         typhoon: {
           name: "Typhoon Strength",
-          amount: 3,
+          value: 3,
           attribute: 'body',
           duration: 10
         }
@@ -468,12 +468,12 @@ var wailOfTheBanshee = {
       },
 
       success: [
-        { amount: 17, type: 'xp' }
+        { value: 17, type: 'xp' }
       ],
 
       fail: [
-        { amount: 10, type: 'xp' },
-        { amount: "Blister plays his cards close to his chest, and keeps his secrets even closer.  Without much to go on, you decide to move on.", type: 'output' }
+        { value: 10, type: 'xp' },
+        { value: "Blister plays his cards close to his chest, and keeps his secrets even closer.  Without much to go on, you decide to move on.", type: 'output' }
       ],
 
       // custom actions
@@ -525,7 +525,7 @@ var wailOfTheBanshee = {
           name: "Health Potion",
           desc: "Restores 10 HP",
           effects: [
-            { amount: 10, type: 'heal' }
+            { value: 10, type: 'heal' }
           ]
         },
         // an adventure item
@@ -533,7 +533,7 @@ var wailOfTheBanshee = {
           name: "Old bracelet",
           desc: "An old and weathered thin golden charm bracelet, fashioned for a woman.",
           effects: [
-            { amount: "It seems really old, and probably not made by man.", type: 'output' }
+            { value: "It seems really old, and probably not made by man.", type: 'output' }
           ]
         }
       },
@@ -544,12 +544,12 @@ var wailOfTheBanshee = {
       },
 
       success: [
-        { amount: 17, type: 'xp' }
+        { value: 17, type: 'xp' }
       ],
 
       fail: [
-        { amount: 10, type: 'xp' },
-        { amount: "GET OUT!", type: 'output' }
+        { value: 10, type: 'xp' },
+        { value: "GET OUT!", type: 'output' }
       ],
 
       // custom actions
@@ -601,12 +601,12 @@ var wailOfTheBanshee = {
       },
 
       success: [
-        { amount: 17, type: 'xp' }
+        { value: 17, type: 'xp' }
       ],
 
       fail: [
-        { amount: 10, type: 'xp' },
-        { amount: "Silly child, I do not take such things so lightly.", type: 'output' }
+        { value: 10, type: 'xp' },
+        { value: "Silly child, I do not take such things so lightly.", type: 'output' }
       ],
 
       // custom actions
@@ -734,7 +734,7 @@ var wailOfTheBanshee = {
       ],
 
       moveon: function( Game, done ){
-        Game.doEffect( {amount: 100, type: 'xp'} );
+        Game.doEffect( {value: 100, type: 'xp'} );
         Game.nextEncounter();
         done();
       }
