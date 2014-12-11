@@ -42,7 +42,7 @@ module.exports = [
     },
     attack_alias: ['solvemurder', "Give it the college try."],
     success: [
-      { type: 'output', amount: 'It went all the way to the top!  The mayor did it, and you confronted him publicly. Good job!'}
+      { type: 'output', value: 'It went all the way to the top!  The mayor did it, and you confronted him publicly. Good job!'}
     ]
   },
   {

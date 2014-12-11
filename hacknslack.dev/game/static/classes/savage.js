@@ -22,7 +22,7 @@ module.exports = {
       Game.output("RAAWAWRAWRRRR!!!!!");
       var buff = {
         name: 'raging',
-        amount: 3,
+        value: 3,
         attribute: 'body',
         duration: 2
       };

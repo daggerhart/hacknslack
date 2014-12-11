@@ -20,15 +20,15 @@ module.exports = [
     },
     attack_alias: ['grabwindow', 'You jump up, reaching for the stone window sill.'],
     success: [
-      { type: 'output', amount: 'Your exercises have finally paid off for something useful!  You are able to pull yourself up through the window.  Inside is a single chest.  You open it.'},
+      { type: 'output', value: 'Your exercises have finally paid off for something useful!  You are able to pull yourself up through the window.  Inside is a single chest.  You open it.'},
       /*
       { type: 'item', name: '%random magic item%' }
       },
       */
-      { type: 'output', amount: 'What a pretty bauble!  Surely this will come in handy someday.'}
+      { type: 'output', value: 'What a pretty bauble!  Surely this will come in handy someday.'}
     ],
     fail: [
-      { type: 'output', amount: 'You never practiced.  You were a failure in P.E. and you are a failure now. You\'ve never accomplished a single push-up in your life, much less a pull-up, which as everyone knows, is much harder.  Ah well, the mysteries of the crumbling tower shall mysterious.'}
+      { type: 'output', value: 'You never practiced.  You were a failure in P.E. and you are a failure now. You\'ve never accomplished a single push-up in your life, much less a pull-up, which as everyone knows, is much harder.  Ah well, the mysteries of the crumbling tower shall mysterious.'}
     ]
   },
   {
@@ -40,13 +40,13 @@ module.exports = [
     },
     attack_alias: ['scalerubble', 'You take a deep breath and haphazardly jump onto the pile, moving up as quickly as possible.'],
     success: [
-      { type: 'output', amount: 'You climb over the rubble effortlessly.  You could probably do some parkour if you really wanted.  But who would want to do that?'},
-      { type: 'output', amount: 'On the other side of the rubble, your path continues.  You are rewarded with the ability to continue on your journey.  Go you.'}
+      { type: 'output', value: 'You climb over the rubble effortlessly.  You could probably do some parkour if you really wanted.  But who would want to do that?'},
+      { type: 'output', value: 'On the other side of the rubble, your path continues.  You are rewarded with the ability to continue on your journey.  Go you.'}
     ],
     fail: [
-      { type: 'output', amount: 'Your parkour skills are not so fancy as you imagine.  You cut your hands, shins, and face on innumerable shards of glass.  Why was there so much glass here?!?!'},
-      { type: 'dmg', amount: '3'},
-      { type: 'output', amount: 'You are able to continue on your journey, leaving a trail of blood in your wake.'}
+      { type: 'output', value: 'Your parkour skills are not so fancy as you imagine.  You cut your hands, shins, and face on innumerable shards of glass.  Why was there so much glass here?!?!'},
+      { type: 'dmg', value: '3'},
+      { type: 'output', value: 'You are able to continue on your journey, leaving a trail of blood in your wake.'}
     ]
   }
 ]

@@ -17,12 +17,12 @@ module.exports = {
       // using an array to alias the global attack action
       attack_alias: ['swat',  'Swat him with a rolled up newspaper!' ],
       success: [
-        { amount: 'You strike the wolf solidly across the nose and he runs away!', type: 'output' },      
+        { value: 'You strike the wolf solidly across the nose and he runs away!', type: 'output' },      
       ],
       fail: [
-        { amount: 2, type: 'dmg' }, // an effect
-        { amount: 'The beast bites your foot hard!', type: 'output' },
-        { amount: 17, type: 'xp' }
+        { value: 2, type: 'dmg' }, // an effect
+        { value: 'The beast bites your foot hard!', type: 'output' },
+        { value: 17, type: 'xp' }
       ]
     },
     {
@@ -35,12 +35,12 @@ module.exports = {
       // using an array to alias the global attack action
       attack_alias:  ['answer', 'you are the riddle champion after all...'],
       success: [
-        { amount: 15, type: 'heal' },
-        { amount: 'You correctly respond to the riddle with "A Purple Nurple."  The answer was inside you all along!', type: 'output' },
-        { amount: 17, type: 'xp' }
+        { value: 15, type: 'heal' },
+        { value: 'You correctly respond to the riddle with "A Purple Nurple."  The answer was inside you all along!', type: 'output' },
+        { value: 17, type: 'xp' }
       ],
       fail: [
-        { type: "output", amount: "You incorrectly respond to the riddle with 'in my pocket'. The confused goblin renders you no aid."}
+        { type: "output", value: "You incorrectly respond to the riddle with 'in my pocket'. The confused goblin renders you no aid."}
       ]
     },
     {
@@ -62,12 +62,12 @@ module.exports = {
         }
       ],
       success: [
-        {type: "output", amount: "YOU KNEW WHO TO CALL"}
+        {type: "output", value: "YOU KNEW WHO TO CALL"}
       ],
 
       fail: [
-        { amount: 2, type: 'dmg' },
-        { type: "output", amount: "The ghost bops you on the head and flies away!" },
+        { value: 2, type: 'dmg' },
+        { type: "output", value: "The ghost bops you on the head and flies away!" },
       ]
     },
     {
@@ -85,12 +85,12 @@ module.exports = {
         'attack'
       ],
       success: [
-        {type: "output", amount: "YOU WIN! 100xp!"},
-        {type: "xp", amount: 100}
+        {type: "output", value: "YOU WIN! 100xp!"},
+        {type: "xp", value: 100}
       ],
 
       fail: [
-        { amount: 2, type: 'dmg' },
+        { value: 2, type: 'dmg' },
       ]
     },    
     
@@ -115,13 +115,13 @@ module.exports = {
       ],
 
       success: [
-        { type: 'gp', amount: 100 }
+        { type: 'gp', value: 100 }
       ],
 
       fail: [
         // POISON TRAP!
-        { type: 'buff', amount: { name: 'poison', amount: -2, attribute:  'body', duration: 2 } },
-        { type: 'output', amount: 'You failed to open the door, but you did not fail to set off the Poison Trap!' }
+        { type: 'buff', value: { name: 'poison', value: -2, attribute:  'body', duration: 2 } },
+        { type: 'output', value: 'You failed to open the door, but you did not fail to set off the Poison Trap!' }
       ],
 
       left: function( Game, done ){
@@ -158,12 +158,12 @@ module.exports = {
         done();
       },
       success: [
-        {type: "output", amount: "The death knight shamefully lowers his head and wanders off, rethinking his unlife choices."}
+        {type: "output", value: "The death knight shamefully lowers his head and wanders off, rethinking his unlife choices."}
       ],
 
       fail: [
-      	{type: "output", amount: "The death knight shouts back at you, criticizing you in ever way but especially your haircut!"},
-        { amount: 2, type: 'dmg' }
+      	{type: "output", value: "The death knight shouts back at you, criticizing you in ever way but especially your haircut!"},
+        { value: 2, type: 'dmg' }
       ]      
     }
   ]
