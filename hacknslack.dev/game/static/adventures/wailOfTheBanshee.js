@@ -64,13 +64,15 @@ function actionGoTo( Game, done ){
  */
 function actionShowLog( Game, done ){
   _.forEach( Game.adventure.adventureLog, function( log ){
-    Game.output( log + '<br>-----' );
+    Game.output( log );
+    Game.output( '-----' );
   });
 
   done();
 }
 
 /**
+ * Show encounters in this adventure that set canVisit = true
  *
  * @param Game
  * @param done
@@ -626,7 +628,7 @@ var wailOfTheBanshee = {
      */
     {
       title: "The Cliff",
-      desc: "You find yourself and the cliffs right outside of time, rocky ledge looms over a violent sea."
+      desc: "You find yourself at the cliffs right outside of town, rocky ledge looms over a violent sea."
         + "The facts of the case whirl around in your mind as you take in the view and consider what to do next.",
 
       // user can goto this encounter directly
@@ -640,15 +642,20 @@ var wailOfTheBanshee = {
       // you can find a charm if you already own the bracelet
       // both items make final encounter easier
       lookaround: function( Game, done ){
-        if ( Game.adventure.hasBracelet ){
+        if ( Game.adventure.hasBracelet && ! Game.adventure.hasCharm ){
           var text = "You find a small charm in the dirt that looks like it attaches to your bracelet."
             + "The charm bears the initials A.T.";
 
-          Game.output( text );
-          Game.adventure.adventureLog.push( text );
-
+          Game.adventure.adventureLog.push(text);
           Game.adventure.hasCharm = true;
         }
+        else {
+          var text = "You look around for a bit, and then your mind starts to wander. "
+            + "With the facts of the case whirling through your mind, you pace the ledge of the "
+            + "cliff aimlessly.";
+        }
+
+        Game.output(text);
 
         done();
       },
