@@ -23,6 +23,17 @@ There are 4 places to go in town.
     - blames dad, Tom, for mother's death
 
 
+------- !! README !! --------
+
+Functions at the top are callbacks for encounter actions.
+
+Uses:
+  - character tags
+  - item purchasing
+  - buff purchasing
+  - traveling between encounters
+  -
+
  */
 var Encounter = require('encounter');
 var _ = require('lodash');
@@ -137,7 +148,7 @@ function actionAttackOnce( Game, done ){
   else {
     // hidden info doesn't attach correct to the encounter as an effect object because of javascript stuff
     // do it here so that it works right
-    Game.encounter.success.push({ value: this.hiddenInfo, type: 'output' });
+    Game.encounter.addSuccessEffect({ value: this.hiddenInfo, type: 'output' });
 
     // do an attack action
     var action = _.clone(globalActions.actions.attack);
@@ -181,14 +192,14 @@ function actionBuyItem( Game, done ){
 
   if ( this.wares[ target ] ){
     var item = this.wares[ target ];
-    Game.character.items.push( item );
+    Game.character.addItem( item );
 
     // remove item from shop
     this.wares[ target ].sold = true;
 
     // when the user buys the bracelet, let the adventure remember
     if ( target == 'bracelet' ) {
-      Game.adventure.hasBracelet = true;
+      Game.character.addTag('hasBansheeBracelet');
     }
 
     Game.output("Ah! An excellent choice!");
@@ -233,11 +244,13 @@ function actionBuyBuff( Game, done ){
  * @param done
  */
 function actionRebukeBanshee( Game, done ){
-  if ( Game.adventure.hasBracelet ){
+  // the bracelet makes the encounter 4 points easier
+  if ( Game.character.hasTag('hasBansheeBracelet') ){
     Game.encounter.challenge.rating -= 4;
   }
 
-  if ( Game.adventure.hasCharm ){
+  // the charm also makes the encounter 4 points easier
+  if ( Game.character.hasTag('hasBansheeCharm') ){
     Game.encounter.challenge.rating -= 4;
   }
 
@@ -325,9 +338,95 @@ function actionAnswerBanshee( Game, done ){
   done();
 }
 
+/**
+ * Get a free buff at the bar
+ * @param Game
+ * @param done
+ */
+function actionBeerMe( Game, done ){
+  if ( ! Game.character.hasBuff('tipsy') ) {
+    Game.character.addBuff( { name: 'tipsy', value: -1, attribute: 'mind', duration: 10 } );
+  }
+  if ( ! Game.character.hasBuff('brave') ) {
+    Game.character.addBuff( { name: 'brave', value: 1, attribute: 'spirit', duration: 10 } );
+  }
+  Game.output('Ahh.  Refreshing.');
+  done();
+}
 
-// ----------------------------------------------- Adventure ------
+/**
+ * Look around the cliffs and possibly find the charm
+ *
+ * @param Game
+ * @param done
+ */
+function actionLookAround( Game, done ){
+  if ( Game.character.hasTag('hasBansheeBracelet') && ! Game.character.hasTag('hasBansheeCharm') ){
+    var text = "You find a small charm in the dirt that looks like it attaches to your bracelet."
+      + "The charm bears the initials A.T.";
 
+    // add some text to the item itself, just to prove it can be done.
+    _.forEach( Game.character.items, function( item, index ){
+      if ( item.name == 'bracelet' ){
+        Game.character.items[index].effects.push({ value: "A small crescent moon charm hangs loosely from the clasp.", type: 'output'});
+      }
+    });
+
+    Game.adventure.adventureLog.push(text);
+    Game.character.addTag('hasBansheeCharm');
+  }
+  else {
+    var text = "You look around for a bit, and then your mind starts to wander. "
+      + "With the facts of the case whirling through your mind, you pace the ledge of the "
+      + "cliff aimlessly.";
+  }
+
+  Game.output(text);
+
+  done();
+}
+
+/**
+ * Move from the cliffs to the banshee clock tower
+ *
+ * @param Game
+ * @param done
+ */
+function actionConfrontBanshee( Game, done ){
+  var tone = "You wait outside the old clock tower all night."
+    + "Finally, as dawn begins to break, you hear movement from within. "
+    + "Scaling the tattered spiral staircase within the clock tower, you quickly reach the top. ";
+
+  Game.output("Your resolve is set. This will end today.");
+  Game.output( tone );
+
+  Game.adventure.canTravel = false;
+
+  Game.nextEncounter();
+  done();
+}
+
+/**
+ * End the adventure, clean up, and go to the next adventure.
+ * @param Game
+ * @param done
+ */
+function actionMoveOn( Game, done ){
+  // remove bracelet & charm
+  Game.character.removeItem('bracelet');
+  Game.character.removeTag('hasBansheeBracelet');
+  Game.character.removeTag('hasBansheeCharm');
+
+  // 100 xp
+  Game.doEffect( {value: 100, type: 'xp'} );
+  Game.nextEncounter();
+  done();
+}
+
+/**
+ *   ----------------------------------------------- Adventure ------
+ *
+ */
 var wailOfTheBanshee = {
 
   title: 'Wail of the Banshee',
@@ -341,10 +440,6 @@ var wailOfTheBanshee = {
 
   // the user can travel between encounters that allow canVisit
   canTravel: true,
-
-  // if the user has the bracelet & charm
-  hasBracelet: false,
-  hasCharm: false,
 
   // keep track of what user has learned
   adventureLog: [],
@@ -408,16 +503,7 @@ var wailOfTheBanshee = {
       ],
 
       // get drunk, good for fighting the final banshee
-      beerme: function( Game, done ){
-        if ( ! Game.character.hasBuff('tipsy') ) {
-          Game.character.addBuff( { name: 'tipsy', value: -1, attribute: 'mind', duration: 10 } );
-        }
-        if ( ! Game.character.hasBuff('brave') ) {
-          Game.character.addBuff( { name: 'brave', value: 1, attribute: 'spirit', duration: 10 } );
-        }
-        Game.output('Ahh.  Refreshing.');
-        done();
-      },
+      beerme: actionBeerMe,
 
       // ask this dude a question
       gatherinfo: actionGatherInfo,
@@ -641,39 +727,10 @@ var wailOfTheBanshee = {
 
       // you can find a charm if you already own the bracelet
       // both items make final encounter easier
-      lookaround: function( Game, done ){
-        if ( Game.adventure.hasBracelet && ! Game.adventure.hasCharm ){
-          var text = "You find a small charm in the dirt that looks like it attaches to your bracelet."
-            + "The charm bears the initials A.T.";
+      lookaround: actionLookAround,
 
-          Game.adventure.adventureLog.push(text);
-          Game.adventure.hasCharm = true;
-        }
-        else {
-          var text = "You look around for a bit, and then your mind starts to wander. "
-            + "With the facts of the case whirling through your mind, you pace the ledge of the "
-            + "cliff aimlessly.";
-        }
-
-        Game.output(text);
-
-        done();
-      },
-
-      //
-      confront: function( Game, done ){
-        var tone = "You wait outside the old clock tower all night."
-          + "Finally, as dawn begins to break, you hear movement from within. "
-          + "Scaling the tattered spiral staircase within the clock tower, you quickly reach the top. ";
-
-        Game.output("Your resolve is set. This will end today.");
-        Game.output( tone );
-
-        Game.adventure.canTravel = false;
-
-        Game.nextEncounter();
-        done();
-      }
+      // confront the Banshee in her clocktower
+      confront: actionConfrontBanshee
     },
 
     /**
@@ -705,22 +762,7 @@ var wailOfTheBanshee = {
       rebuke: actionRebukeBanshee,
 
       // answer the riddle of the banshee
-      answer: actionAnswerBanshee,
-
-      // unlike an action, this method does not have a done callback
-      afterLoad: function( Game ){
-        //// remove the navigation methods the user can no longer perform
-        //var remaining_actions = [];
-        //
-        //// loop through adventure actions and remove them as desired
-        //_.forEach( Game.adventure.actions, function( action ){
-        //  if ( action.cmd != 'showmap' && action.cmd != 'goto' ){
-        //    remaining_actions.push( action );
-        //  }
-        //});
-        //
-        //Game.adventure.actions = remaining_actions;
-      }
+      answer: actionAnswerBanshee
     },
 
     /**
@@ -740,11 +782,7 @@ var wailOfTheBanshee = {
         { cmd: 'moveon', text: 'Move on to other adventures'}
       ],
 
-      moveon: function( Game, done ){
-        Game.doEffect( {value: 100, type: 'xp'} );
-        Game.nextEncounter();
-        done();
-      }
+      moveon: actionMoveOn
     }
   ]
 
