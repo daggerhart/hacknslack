@@ -339,7 +339,7 @@ var wailOfTheBanshee = {
   // custom adventure data
   riddleAnswer: 'marie',
 
-  // the user can travel between encounters that allow canGoto
+  // the user can travel between encounters that allow canVisit
   canTravel: true,
 
   // if the user has the bracelet & charm

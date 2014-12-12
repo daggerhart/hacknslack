@@ -129,6 +129,15 @@ module.exports = {
 
         Game.character.name = Game.input.words.join(' ');
 
+        Game.character
+          .addTag( 'newguy')
+          .addTag('hello')
+          .addTag('world')
+          .showTags()
+          .removeTag('hello')
+          .removeTag('world')
+          .showTags();
+
         // next encounter
         Game.nextEncounter();
 
