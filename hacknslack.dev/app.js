@@ -66,7 +66,7 @@ app.get('/', function(req, res){
 
 // route static files found in /public
 app.get(/^(.+)$/, function(req, res) {
-  res.sendfile('/' + req.params[0]);
+  res.sendFile('/' + req.params[0]);
 });
 
 // server

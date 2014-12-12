@@ -471,6 +471,8 @@ var wailOfTheBanshee = {
       title: "Tavern's Place",
       desc: "In a dark and musky tavern, you meet Jerry Tavernkeeperson, owner of this fine establishment.",
 
+      image: 'tavern.jpg',
+
       // user can goto this encounter directly
       canVisit: true,
 
@@ -520,6 +522,8 @@ var wailOfTheBanshee = {
       title: "Blister's Blessing Emporium",
       desc: "\"Bless you my friend, how may I help you?\", says Blister Halfman, "
         + "the halfling owner of this decadent emporium of trinkets and fetishes.",
+
+      image: 'halfling.jpg',
 
       // user can goto this encounter directly
       canVisit: true,
@@ -593,6 +597,8 @@ var wailOfTheBanshee = {
       title: "Le' Item Shoppe",
       desc: "\"Welcome!\", the portly man behind the counter proclaimed.  The shop is crowded with somewhat dusty supplies, "
         + "\"I'm Tom Tavernkeeperson, what can I do for you?\"",
+
+      image: 'shopkeeper.jpg',
 
       // user can goto this encounter directly
       canVisit: true,
@@ -671,6 +677,8 @@ var wailOfTheBanshee = {
       desc: "Inside the flamboyant hut, you meet Maria Clairvoyant the proprietor. "
       + "'Welcome friend, I've been expecting your visit', she says. 'How may I help you?'",
 
+      image: 'psychic.jpg',
+
       // user can goto this encounter directly
       canVisit: true,
 
@@ -717,6 +725,8 @@ var wailOfTheBanshee = {
       desc: "You find yourself at the cliffs right outside of town, rocky ledge looms over a violent sea."
         + "The facts of the case whirl around in your mind as you take in the view and consider what to do next.",
 
+      image: 'cliff-sea.jpg',
+
       // user can goto this encounter directly
       canVisit: true,
 
@@ -742,6 +752,8 @@ var wailOfTheBanshee = {
         + "her back to you as she stares out at the sea. "
         + "She slowly turns her wet, dead head around towards you.  Her white, bloated eyes staring at nothing, her mouth agape."
         + "Her scream echoes throughout your brain, \"WHOOOOOO DID THIS TO MEEEEEE?\". Dare you answer?",
+
+      image: 'banshee.jpg',
 
       // user can not goto this encounter directly
       canVisit: false,
@@ -775,6 +787,8 @@ var wailOfTheBanshee = {
         + "forget your time here. ----  The sea crashes endlessly against the cliffs "
         + "as you stare out over the water. Some day, you may have to come back and "
         + "face the Mist Demon you are sure resides in the spray.  But not today...",
+
+      image: 'cliff-town.jpg',
 
       canVisit: false,
 

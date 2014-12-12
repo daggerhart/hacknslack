@@ -412,9 +412,13 @@ module.exports = {
 
     // append allowed actions to every output
     Game.output('<hr style="margin: 0; border-bottom: 1px dashed #bbb">');
+    if ( Game.encounter.image ){
+      var url = tools.getImageUrl( Game.encounter.image );
+      Game.output( '<div class="game-image"><img src="' + url + '" class="encounter" /></div>' );
+    }
     Game.output( Game.encounter.title );
     Game.output( Game.encounter.desc );
-
+    Game.output('');
     Object.keys( Game.allowed_actions ).forEach(function( key ){
       if ( ! Game.allowed_actions[ key ].silent ) {
         Game.output( '- ' + key + ': ' + Game.allowed_actions[ key ].text );
