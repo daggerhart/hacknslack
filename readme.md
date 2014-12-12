@@ -12,8 +12,10 @@ Find something to do for 20 minutes. It will take about that long for it to down
 
 Install git - http://git-scm.com/download/win
 
-Open Control Panel > ----- TODO ------- 
-and add "C:\%whatever git dir is%\bin" to user path
+Add git's bin to your system path so vagrant ssh will work:
+
+Right click computer > properties > advanced system settings > advanced tab > environment variables button > edit path variable:
+and add "C:\%whatever git dir is%\bin" to user path.  eg,  C:\Program Files (x86)\Git\bin
 
 Open the following file as an administrator `c:\windows\system32\drivers\etc\hosts`
 
