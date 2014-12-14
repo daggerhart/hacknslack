@@ -45,7 +45,7 @@ module.exports = {
    */
   init: function( req, res, next ) {
     var Game = require('game');
-    req.Game = new Game( req );
+    req.Game = Game.create( req );
 
     next();
   },
