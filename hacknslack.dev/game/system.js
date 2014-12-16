@@ -41,29 +41,17 @@ var globalActions = require('globalActions');
 module.exports = {
 
   /**
-   * Instantiate a Game and attach to request
-   */
-  init: function( req, res, next ) {
-    var Game = require('game');
-    req.Game = Game.create( req );
-
-    next();
-  },
-
-  /**
    * TODO: add input sanitization to ensure we're clean before continuing
    */
   sanitizeInput: function( req, res, next ){
-
     next();
   },
 
   /**
    * Convert a submitted input into an object with expectations
    */
-  parseGameInput: function( req, res, next ) {
-    var Game = req.Game;
-    var split_array = Game.raw_input.split(' '),
+  parseInput: function( req, res, next ) {
+    var split_array = req.query.text.split(' '),
       input = {
         context: '',
         words: [],       // split and trimmed
@@ -88,11 +76,20 @@ module.exports = {
       input.target = input.words[1];
     }
 
-    Game.input = input;
+    req.systemParsedInput = input;
 
     if ( next ) {
       next();
     }
+  },
+
+  /**
+   * Instantiate a Game and attach to request
+   */
+  gameInit: function( req, res, next ) {
+    var Game = require('game');
+    req.Game = Game.create( req );
+    next();
   },
 
   /**
@@ -346,7 +343,7 @@ module.exports = {
     
     if ( Game.character && Game.character.xp) {
       if ( Game.character.xp > 100 ) {
-      	Game.character.levelUp();      
+      	Game.character.levelUp( Game );
       }
     }
 

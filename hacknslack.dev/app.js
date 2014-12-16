@@ -1,9 +1,9 @@
-var express = require('express');
-var app = express();
-//var router = express.Router();
-var fs = require('fs');
-
-var mongoose   = require('mongoose');
+var express  = require('express');
+var app      = express();
+//var router   = express.Router();
+var fs       = require('fs');
+var System   = require('./game/system');
+var mongoose = require('mongoose');
 
 mongoose.connect('mongodb://localhost:27017/testdb');
 
@@ -16,24 +16,22 @@ db.once('open', function callback () {
   console.log('mongoose connected');
 });
 
-
 app
   .use( logger)
-  .use( express.static( __dirname + '/public' ))
-  .use( function( req, res, next ){
-    req.db = db;
-    next();
-  });
+  .use( express.static( __dirname + '/public' ));
 
-var System = require('./game/system');
 
 /**
  * JSON developer endpoint
  */
 app.use('/json',
-  System.init,
+  function( req, res, next ){
+    req.db = db;
+    next();
+  },
   System.sanitizeInput,       // make sure input contains no illegal content
-  System.parseGameInput,      // convert text input into an action
+  System.parseInput,      // convert text input into an action
+  System.gameInit,
   System.loadPlayer,
   System.loadCharacter,
   System.loadAdventure,
@@ -56,17 +54,6 @@ app.use('/json',
     //console.log( req.Game );
     //console.log("-----------------------------");
     res.json( req.Game.messages );
-});
-
-
-// route the root
-app.get('/', function(req, res){
-  res.sendFile('/index.html');
-});
-
-// route static files found in /public
-app.get(/^(.+)$/, function(req, res) {
-  res.sendFile('/' + req.params[0]);
 });
 
 // server
