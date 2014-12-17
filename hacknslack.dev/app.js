@@ -2,8 +2,9 @@ var express  = require('express');
 var app      = express();
 //var router   = express.Router();
 var fs       = require('fs');
-var System   = require('./game/system');
 var mongoose = require('mongoose');
+var System   = require('./game/system');
+var tools    = require('./game/node_modules/tools.js');
 
 mongoose.connect('mongodb://localhost:27017/testdb');
 
@@ -44,16 +45,31 @@ app.use('/json',
   System.saveGame,            // save the results
   System.afterLoad,           // allow main objects to respond to game after it has loaded
   System.findAllowedActions,  // find new actions in case they have changed
-  System.buildHTMLOutput,     // output for this endpoint
 
   // final, return output
   function( req, res ){
+
+    var output = {
+      character: req.Game.character,
+      adventure: req.Game.adventure,
+      encounter: req.Game.encounter,
+      output:   req.Game.messages.output,
+      debug:   req.Game.messages.debug,
+      errors:   req.Game.messages.errors,
+      actions:   req.Game.allowed_actions
+    };
+
+    // encounter image
+    if ( req.Game.encounter.image ){
+      output.image = tools.getImageUrl( req.Game.encounter.image );
+    }
+
     console.log("-----------------------------");
     console.log('Game complete.');
     console.log("-----------------------------");
     //console.log( req.Game );
     //console.log("-----------------------------");
-    res.json( req.Game.messages );
+    res.json( output );
 });
 
 // server
