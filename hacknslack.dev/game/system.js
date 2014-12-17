@@ -41,29 +41,17 @@ var globalActions = require('globalActions');
 module.exports = {
 
   /**
-   * Instantiate a Game and attach to request
-   */
-  init: function( req, res, next ) {
-    var Game = require('game');
-    req.Game = new Game( req );
-
-    next();
-  },
-
-  /**
    * TODO: add input sanitization to ensure we're clean before continuing
    */
   sanitizeInput: function( req, res, next ){
-
     next();
   },
 
   /**
    * Convert a submitted input into an object with expectations
    */
-  parseGameInput: function( req, res, next ) {
-    var Game = req.Game;
-    var split_array = Game.raw_input.split(' '),
+  parseInput: function( req, res, next ) {
+    var split_array = req.query.text.split(' '),
       input = {
         context: '',
         words: [],       // split and trimmed
@@ -88,11 +76,20 @@ module.exports = {
       input.target = input.words[1];
     }
 
-    Game.input = input;
+    req.systemParsedInput = input;
 
     if ( next ) {
       next();
     }
+  },
+
+  /**
+   * Instantiate a Game and attach to request
+   */
+  gameInit: function( req, res, next ) {
+    var Game = require('game');
+    req.Game = Game.create( req );
+    next();
   },
 
   /**
@@ -346,7 +343,7 @@ module.exports = {
     
     if ( Game.character && Game.character.xp) {
       if ( Game.character.xp > 100 ) {
-      	Game.character.levelUp();      
+      	Game.character.levelUp( Game );
       }
     }
 
@@ -381,57 +378,11 @@ module.exports = {
       console.log('Game saved.: ' + affected );
       console.log("-----------------------------");
 
+      Game.debug('On encounter ' + Game.character.current_encounter + ' of adventure ' + Game.adventure.title );
       //console.log(player.characters.current);
 
       next();
     });
-
-  },
-
-  /**
-   * Make output for environment
-   *
-   * @param req
-   * @param res
-   * @param next
-   */
-  buildHTMLOutput: function( req, res, next ){
-    var Game = req.Game;
-
-    Game.debug('On encounter ' + Game.character.current_encounter + ' of adventure ' + Game.adventure.title );
-
-    // header at top of output
-    if ( Game.character.attributes ) {
-      Game.messages.output.unshift('<div style="border-bottom: 1px dashed #bbb;">Name: '
-        + Game.character.name + ' -- Class: ' + Game.character.class.name 
-        + ' -- HP: ' + Game.character.hp + ' / ' + Game.character.attributes.hp
-        + ' -- AD: ' + ( Game.character.current_encounter + 1) + '/' + Game.adventure.encounters.length
-        + '' + Game.adventure.title
-        + '</div>');
-    }
-
-    // append allowed actions to every output
-    Game.output('<hr style="margin: 0; border-bottom: 1px dashed #bbb">');
-    if ( Game.encounter.image ){
-      var url = tools.getImageUrl( Game.encounter.image );
-      Game.output( '<div class="game-image"><img src="' + url + '" class="encounter" /></div>' );
-    }
-    Game.output( Game.encounter.title );
-    Game.output( Game.encounter.desc );
-    Game.output('');
-    Object.keys( Game.allowed_actions ).forEach(function( key ){
-      if ( ! Game.allowed_actions[ key ].silent ) {
-        Game.output( '- ' + key + ': ' + Game.allowed_actions[ key ].text );
-      }
-    });
-    // end
-
-    Game.output('<hr style="border-bottom: 2px solid blue">');
-
-    // join with line break for now
-    Game.messages.payload = Game.messages.output.join('<br>');
-
-    next();
   }
-}
+};
 

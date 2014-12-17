@@ -1,0 +1,47 @@
+.navbar {
+    border-radius: 0;
+}
+.slack-input {
+    padding: 0.5em 0;
+}
+#slack-output {
+    border: 1px solid #bbb;
+}
+#debug-output {
+    border: 1px solid red;
+}
+
+.game-turn {
+    border-bottom: 2px solid blue;
+}
+.game-turn .header {
+    border-bottom: 1px dashed grey;
+}
+
+.game-turn .results {
+    border-bottom: 1px dashed grey
+}
+.game-turn .encounter {
+    border-top: 1px dashed blue;
+    border-bottom: 1px dashed blue;
+}
+.game-turn .actions {
+    float: none;
+    clear: left;
+}
+
+
+.turn-image {
+    display: block;
+    float: left;
+    margin: 0 6px 6px 0;
+}
+.turn-image img {
+    max-width: 120px;
+    background: #fff;
+}
+.turn-image img.encounter {
+    border: 1px solid darkgreen;
+    padding: 1px;
+}
+
